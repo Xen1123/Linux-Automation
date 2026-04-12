@@ -304,8 +304,8 @@ do
 	case $opt in
 		"Yes")
 			sudo apt install ssh -y
-			sudo systemctl enable sshd
-			sudo systemctl start sshd
+			sudo systemctl enable ssh
+			sudo systemctl start ssh
 			break
 			;;
 		"No")
@@ -350,7 +350,7 @@ fastfetch
 
 PS3="What Browser Would You Like?
 "
-options=("Firefox" "Chrome")
+options=("Firefox" "Chrome" "Skip")
 select opt in "${options[@]}"
 do
 	case $opt in
@@ -366,6 +366,9 @@ do
 			rm google-chrome*
 			clear
 			fastfetch
+			break
+			;;
+		"Skip")
 			break
 			;;
 		*)
@@ -387,10 +390,13 @@ do
 			sudo systemctl reboot
 			;;
 		"KDE")
-			sudo systemctl start sddm.service
+			sudo systemctl restart sddm.service
 			;;
 		"Exit")
 			exit
+			;;
+		*)
+			echo "Invalid Option: $REPLY"
 			;;
 		esac
 	done
