@@ -19,6 +19,7 @@ rm -rf ~/paru
 		makepkg -si --noconfirm >/dev/null 2>&1
 			sudo -v
 
+clear
 
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
 "
@@ -36,6 +37,7 @@ do
 		esac
 	done
 
+clear
 
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
 "
@@ -54,6 +56,8 @@ do
 			;;
 		esac
 	done
+
+clear
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?"
 options=("Yes" "No")
@@ -80,12 +84,16 @@ EOF
 	esac
 done
 
+clear
+
 	paru -S balena-etcher --noconfirm
 	paru -S ventoy-bin --noconfirm
 	paru -S qdl --noconfirm
 	paru -S kde-material-you-colors --noconfirm
 cd ~ && sudo -v
 fastfetch --gen-config-force
+
+clear
 
 cat <<EOF > ~/.config/fastfetch/config.jsonc
 {
@@ -305,6 +313,7 @@ do
 		esac
 	done
 
+clear
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?
 "
@@ -378,12 +387,6 @@ do
 			;;
 		esac
 	done
-
-
-	  ############################
-	  ############################
-	  ############################
-	  ############################
 
 elif command -v dnf >/dev/null 2>&1; then
   echo "Fedora Found!"
@@ -461,6 +464,7 @@ do
 		esac
 	done
 
+clear
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?
 "
@@ -517,6 +521,8 @@ do
 			;;
 		esac
 	done
+
+clear
 
 PS3="Would You Like To Reboot (Recommended) Or Exit The Script Now?
 "
