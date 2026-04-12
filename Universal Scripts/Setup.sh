@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 echo "This Script Sets Up Your System If You Use Arch, Debian, OR Fedora! (Press Any Key To Continue)"
 read -n 1 -s
 echo "On A Device With A Browser, Please Go To 'https://github.com/Xen1123/Linux-Automation/tree/main/Universal%20Scripts/Look-At-Me.md' Before Continuing! (Press Any Key To Continue)"
@@ -241,7 +240,7 @@ elif command -v apt >/dev/null 2>&1; then
     sleep 2
     clear
 		sudo apt update && sudo apt upgrade -y
-		sudo apt install sddm wl-clipboard qdl network-manager heimdall-flash libfuse2 7zip task-kde-desktop fastfetch curl eog acpi flatpak plasma-discover-backend-flatpak discover vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
+		sudo apt install sddm wl-clipboard qdl network-manager libfuse2 7zip task-kde-desktop fastfetch curl eog acpi flatpak plasma-discover-backend-flatpak discover vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		sudo apt remove konqueror -y
 		sudo apt autoremove -y
@@ -294,6 +293,8 @@ do
 		esac
 	done
 
+clear
+fastfetch
 
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
 "
@@ -314,6 +315,7 @@ do
 	done
 
 clear
+fastfetch
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?
 "
@@ -345,6 +347,7 @@ sudo -v
 
 clear
 fastfetch
+
 PS3="What Browser Would You Like?
 "
 options=("Firefox" "Chrome")
@@ -371,7 +374,11 @@ do
 		esac
 	done
 
-PS3="Would You Like To Reboot (Recommended), Go Straight To KDE, Or Exit The Script Now?"
+clear
+fastfetch
+
+PS3="Would You Like To Reboot (Recommended), Go Straight To KDE, Or Exit The Script Now?
+"
 options=("Reboot" "KDE" "Exit")
 select opt in "${options[@]}"
 do
