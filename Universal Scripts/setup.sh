@@ -318,7 +318,7 @@ do
 			cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
 fastfetch
-alias pacman 'sudo pacman'
+alias apt 'sudo apt'
 EOF
 			chsh -s /usr/bin/fish
 			break
@@ -389,14 +389,148 @@ elif command -v dnf >/dev/null 2>&1; then
   echo "Fedora Found!"
   	sleep 2
   	clear
-		sudo dnf install android-tools yt-dlp
+		sudo dnf update -y
+		sudo -v
+		sudo dnf install yt-dlp fastfetch nano vim wl-clipboard curl flatpak 7zip git acpi power-profiles-daemon usbutils -y --allowerasing
+		sudo -v
+		sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	clear
+	sudo flatpak install flathub org.localsend.localsend_app -y
+
+	fastfetch --gen-config
+cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
+clear
+fastfetch
+
+PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
+"
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo dnf install android-tools heimdall gvfs-mtp -y
+			break
+			;;
+		"No")
+			break
+			;;
+		esac
+	done
 
 
+PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
+"
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo dnf install ssh -y
+			sudo systemctl enable ssh
+			sudo systemctl start ssh
+			break
+			;;
+		"No")
+			break
+			;;
+		esac
+	done
 
-	  ##############################
-	  ##############################
-	  ##############################
-	  ##############################
+
+PS3="Would You Like To Use Fish Shell Instead Of Bash?
+"
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo dnf install fish -y
+			mkdir -p ~/.config/fish
+			cat <<EOF > ~/.config/fish/config.fish
+set fish_greeting ""
+fastfetch
+alias dnf 'sudo dnf'
+EOF
+			chsh -s /usr/bin/fish
+			break
+			;;
+		"No")
+			break
+			;;
+		*)
+			echo "Invalid Option: $REPLY"
+			;;
+	esac
+done
+
+sudo -v
+
+clear
+fastfetch
+PS3="What Browser Would You Like?
+"
+options=("Firefox" "Chrome")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Firefox")
+			sudo dnf install firefox -y
+			clear
+			fastfetch
+			break
+			;;
+		"Chrome")
+			wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+			sudo dnf install ./google-chrome-stable_current_x86_64.rpm -y
+			rm google-chrome*
+			clear
+			fastfetch
+			break
+			;;
+		*)
+			echo "Invalid Option: $REPLY"
+			;;
+		esac
+	done
+
+PS3="Would You Like To Reboot (Recommended) Or Exit The Script Now?
+"
+options=("Reboot" "Exit")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Reboot")
+			sudo systemctl reboot
+			;;
+		"Exit")
+			exit
+			;;
+		esac
+	done
 
 else
 	echo "Sorry, This Script Does Not Support Your System, Either You're Using A Supported Distro Base But Don't Have Systemd, Or You Aren't Using Arch-Based, Debian Based, Or Fedora Based"
