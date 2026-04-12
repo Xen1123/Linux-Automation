@@ -1,13 +1,14 @@
 #!/bin/bash
-echo "This Script Sets Up Your System If You Use Arch, Debian, OR Fedora!"
+set -e
+echo "This Script Sets Up Your System If You Use Arch, Debian, OR Fedora! (Press Any Key To Continue)"
 read -n 1 -s
-echo "On A Device With A Browser, Please Go To 'https://github.com/Xen1123/Linux-Automation/tree/main/Universal%20Scripts/Look-At-Me.md' Before Continuing!"
+echo "On A Device With A Browser, Please Go To 'https://github.com/Xen1123/Linux-Automation/tree/main/Universal%20Scripts/Look-At-Me.md' Before Continuing! (Press Any Key To Continue)"
 read -n 1 -s
 if command -v pacman >/dev/null 2>&1 && command -v systemctl >/dev/null 2>&1; then
   echo "Arch Found (With Systemd) !"
     sleep 2
     clear
-      sudo pacman -S wget okular eog wl-clipboard curl 7zip git acpi power-profiles-daemon base-devel bat nano btop vim scrcpy fastfetch android-tools android-udev gvfs gvfs-mtp heimdall usbutils yt-dlp plasma networkmanager flatpak sddm openssh konsole dolphin --needed --noconfirm || { echo "You are NOT connected to the internet!"; exit 1; }
+      sudo pacman -S wget okular eog wl-clipboard curl 7zip git acpi power-profiles-daemon base-devel bat nano btop vim scrcpy fastfetch gvfs usbutils yt-dlp plasma networkmanager flatpak sddm konsole dolphin --needed --noconfirm || { echo "You are NOT connected to the internet!"; exit 1; }
 cd
 sudo -v
 rm -rf ~/paru
@@ -17,6 +18,42 @@ rm -rf ~/paru
         echo "Installing paru (An AUR Helper Written In Rust)" && sudo -v
 		makepkg -si --noconfirm >/dev/null 2>&1
 			sudo -v
+
+
+PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
+"
+options=()"Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo pacman -S android-tools heimdall android-udev gvfs-mtp --noconfirm
+			break
+			;;
+		"No")
+			break
+			;;
+		esac
+	done
+
+
+PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
+"
+options=()"Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo pacman -S openssh
+			sudo systemctl enable sshd
+			sudo systemctl start sshd
+			break
+			;;
+		"No")
+			break
+			;;
+		esac
+	done
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?"
 options=("Yes" "No")
@@ -76,8 +113,6 @@ cat <<EOF > ~/.config/fastfetch/config.jsonc
 EOF
 
 sudo systemctl enable NetworkManager
-sudo systemctl enable sshd
-sudo systemctl start sshd
 sudo systemctl enable sddm.service
 sudo systemctl enable power-profiles-daemon.service
 sudo systemctl start power-profiles-daemon.service
@@ -198,7 +233,7 @@ elif command -v apt >/dev/null 2>&1; then
     sleep 2
     clear
 		sudo apt update && sudo apt upgrade -y
-		sudo apt install adb fastboot sddm wl-clipboard ssh qdl network-manager heimdall-flash libfuse2 7zip task-kde-desktop fastfetch curl eog acpi flatpak plasma-discover-backend-flatpak discover vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
+		sudo apt install sddm wl-clipboard qdl network-manager heimdall-flash libfuse2 7zip task-kde-desktop fastfetch curl eog acpi flatpak plasma-discover-backend-flatpak discover vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		sudo apt remove konqueror -y
 		sudo apt autoremove -y
@@ -234,6 +269,43 @@ cat <<EOF > ~/.config/fastfetch/config.jsonc
 EOF
 clear
 fastfetch
+
+PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
+"
+options=()"Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo apt install adb fastboot heimdall-flash -y
+			break
+			;;
+		"No")
+			break
+			;;
+		esac
+	done
+
+
+PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
+"
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo apt install ssh -y
+			sudo systemctl enable ssh
+			sudo systemctl start ssh
+			break
+			;;
+		"No")
+			break
+			;;
+		esac
+	done
+
+
 PS3="Would You Like To Use Fish Shell Instead Of Bash?
 "
 options=("Yes" "No")
