@@ -1,61 +1,86 @@
 #!/bin/bash
 echo "This Script Sets Up Your System If You Use Arch, Debian, OR Fedora!"
 read -n 1 -s
-if command -v pacman >/dev/null 2>&1; then
-  echo "Arch Found!"
+echo "On A Device With A Browser, Please Go To 'https://github.com/Xen1123/Linux-Automation/tree/main/Universal%20Scripts/Look-At-Me.md' Before Continuing!"
+read -n 1 -s
+if command -v pacman >/dev/null 2>&1 && command -v systemctl >/dev/null 2>&1; then
+  echo "Arch Found (With Systemd) !"
     sleep 2
     clear
-      sudo pacman -S wget okular eog wl-clipboard curl git power-profiles-daemon base-devel bat nano btop vim scrcpy fastfetch android-tools android-udev gvfs gvfs-mtp heimdall usbutils fish yt-dlp plasma networkmanager flatpak sddm openssh konsole dolphin --needed --noconfirm || { echo "You are NOT connected to the internet!"; exit 1; }
+      sudo pacman -S wget okular eog wl-clipboard curl 7zip git acpi power-profiles-daemon base-devel bat nano btop vim scrcpy fastfetch android-tools android-udev gvfs gvfs-mtp heimdall usbutils yt-dlp plasma networkmanager flatpak sddm openssh konsole dolphin --needed --noconfirm || { echo "You are NOT connected to the internet!"; exit 1; }
 cd
-rm -rf ~/yay
-		git clone https://aur.archlinux.org/yay.git || { echo "Clone Failed! Please Install Git And Dependencies!"; exit 1; }
-		cd ~/yay
-		makepkg -si --noconfirm
-mkdir -p ~/.config/fish
+sudo -v
+rm -rf ~/paru
+		git clone https://aur.archlinux.org/paru.git || { echo "Clone Failed! Please Install Git And Dependencies!"; exit 1; }
+		cd ~/paru
+        clear
+        echo "Installing paru (An AUR Helper Written In Rust)" && sudo -v
+		makepkg -si --noconfirm >/dev/null 2>&1
+			sudo -v
 
-(
-echo 'set fish_greeting ""'
-echo "fastfetch"
-echo "alias pacman 'sudo pacman'"
-) > ~/.config/fish/config.fish
+PS3="Would You Like To Use Fish Shell Instead Of Bash?"
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo pacman -S fish --noconfirm
+			mkdir -p ~/.config/fish
+			cat <<EOF > ~/.config/fish/config.fish
+set fish_greeting ""
+fastfetch
+alias pacman 'sudo pacman'
+EOF
+			chsh -s /usr/bin/fish
+			break
+			;;
+		"No")
+			break
+			;;
+		*)
+			echo "Invalid Option: $REPLY"
+			;;
+	esac
+done
 
-	yay -S balena-etcher --noconfirm
-	yay -S ventoy-bin --noconfirm
-	yay -S qdl --noconfirm
-	yay -S kde-material-you-colors --noconfirm
-cd /home/$USER
+	paru -S balena-etcher --noconfirm
+	paru -S ventoy-bin --noconfirm
+	paru -S qdl --noconfirm
+	paru -S kde-material-you-colors --noconfirm
+cd ~ && sudo -v
 fastfetch --gen-config
-(
-echo "{"
-echo '"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",'
-echo '"modules": ['
-echo '"title",'
-echo '"separator",'
-echo '"os",'
-echo '"host",'
-echo '"kernel",'
-echo '"uptime",'
-echo '"packages",'
-echo '"terminal",'
-echo '"cpu",'
-echo '"gpu",'
-echo '"memory",'
-echo '"swap",'
-echo '"disk",'
-echo '"localip",'
-echo '"battery",'
-echo '"break",'
-echo '"colors"'
-echo "]"
-echo "}"
-) > ~/.config/fastfetch/config.jsonc
+
+cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
+
 sudo systemctl enable NetworkManager
 sudo systemctl enable sshd
 sudo systemctl start sshd
 sudo systemctl enable sddm.service
 sudo systemctl enable power-profiles-daemon.service
 sudo systemctl start power-profiles-daemon.service
-chsh -s /usr/bin/fish
 clear
 PS3='Would You Like Firefox, Chrome, None, or Something Else?
 '
@@ -69,13 +94,14 @@ do
 			break
 			;;
 		"Google Chrome")
-			yay -S google-chrome --noconfirm
+			paru -S google-chrome --noconfirm
 			break
 			;;
 		"None")
 			break
 			;;
 		"Something Else")
+				sudo -v
 				PS3='Brave, Zen Browser, Chromium, Librewolf, or None Of The Above?
 				'
 				options=("Brave" "Zen" "Chromium" "Librewolf" "None")
@@ -84,11 +110,11 @@ do
 				do
 					case $opt in
 						"Brave")
-							yay -S brave-bin --noconfirm
+							paru -S brave-bin --noconfirm
 							break
 							;;
 						"Zen")
-							yay -S zen-browser-bin --noconfirm
+							paru -S zen-browser-bin --noconfirm
 							break
 							;;
 						"Chromium")
@@ -96,7 +122,7 @@ do
 							break
 							;;
 						"Librewolf")
-							yay -S librewolf-bin --noconfirm
+							paru -S librewolf-bin --noconfirm
 							break
 							;;
 						"None")
@@ -115,7 +141,7 @@ do
 esac
 done
 
-clear
+sudo -v && clear
 PS3='Would You Like Localsend, Discord, Neither, or Both? 
 '
 options=("Localsend" "Discord" "Both" "Neither")
@@ -124,7 +150,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Localsend")
-			yay -S localsend-bin --noconfirm
+			paru -S localsend-bin --noconfirm
 			break
 			;;
 		"Discord")
@@ -133,7 +159,7 @@ do
 			;;
 		"Both")
 			sudo pacman -S discord --noconfirm
-			yay -S localsend-bin --noconfirm
+			paru -S localsend-bin --noconfirm
 			break
 			;;
 		"Neither")
@@ -166,15 +192,141 @@ do
 			;;
 	esac
 	done
-#########################################
-#########################################
-#########################################
-#########################################
-#########################################
-#########################################
-#########################################
+
 elif command -v apt >/dev/null 2>&1; then
   echo "Ubuntu/Debian Found!"
     sleep 2
     clear
-      sudo apt install adb fastboot
+		sudo apt update && sudo apt upgrade -y
+		sudo apt install adb fastboot sddm wl-clipboard ssh qdl network-manager heimdall-flash libfuse2 7zip task-kde-desktop fastfetch curl eog acpi flatpak plasma-discover-backend-flatpak discover vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
+		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+		sudo apt remove konqueror -y
+		sudo apt autoremove -y
+	clear
+	sudo systemctl enable sddm.service
+	sudo systemctl enable NetworkManager
+	sudo systemctl enable power-profiles-daemon.service
+	sudo -v
+	fastfetch --gen-config
+cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
+clear
+fastfetch
+PS3="Would You Like To Use Fish Shell Instead Of Bash?
+"
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo apt install fish -y
+			mkdir -p ~/.config/fish
+			cat <<EOF > ~/.config/fish/config.fish
+set fish_greeting ""
+fastfetch
+alias pacman 'sudo pacman'
+EOF
+			chsh -s /usr/bin/fish
+			break
+			;;
+		"No")
+			break
+			;;
+		*)
+			echo "Invalid Option: $REPLY"
+			;;
+	esac
+done
+
+sudo -v
+
+clear
+fastfetch
+PS3="What Browser Would You Like?
+"
+options=("Firefox" "Chrome")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Firefox")
+			sudo apt install firefox -y
+			clear
+			fastfetch
+			break
+			;;
+		"Chrome")
+			wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+			sudo apt install google-chrome-stable_current_amd64.deb -y
+			rm google-chrome*
+			clear
+			fastfetch
+			break
+			;;
+		*)
+			echo "Invalid Option: $REPLY"
+			;;
+		esac
+	done
+
+PS3="Would You Like To Reboot (Recommended), Go Straight To KDE, Or Exit The Script Now?"
+options=("Reboot" "KDE" "Exit")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Reboot")
+			sudo systemctl reboot
+			;;
+		"KDE")
+			sudo systemctl start sddm.service
+			;;
+		"Exit")
+			exit
+			;;
+		esac
+	done
+
+
+	  ############################
+	  ############################
+	  ############################
+	  ############################
+
+elif command -v dnf >/dev/null 2>&1; then
+  echo "Fedora Found!"
+  	sleep 2
+  	clear
+		sudo dnf install android-tools yt-dlp
+
+
+
+	  ##############################
+	  ##############################
+	  ##############################
+	  ##############################
+
+else
+	echo "Sorry, This Script Does Not Support Your System, Either You're Using A Supported Distro Base But Don't Have Systemd, Or You Aren't Using Arch-Based, Debian Based, Or Fedora Based"
+	exit 1
+fi
