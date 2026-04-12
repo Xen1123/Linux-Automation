@@ -278,8 +278,7 @@ do
 			;;
 		"Chrome")
 			wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-			sudo apt install google-chrome-stable_current_amd64.deb -y
-			sleep 10
+			sudo apt install ./google-chrome-stable_current_amd64.deb -y
 			rm google-chrome*
 			clear
 			fastfetch
@@ -291,8 +290,7 @@ do
 		esac
 	done
 
-PS3="Would You Like To Reboot (Recommended), Go Straight To KDE, Or Exit The Script Now?
-"
+PS3="Would You Like To Reboot (Recommended), Go Straight To KDE, Or Exit The Script Now?"
 options=("Reboot" "KDE" "Exit")
 select opt in "${options[@]}"
 do
