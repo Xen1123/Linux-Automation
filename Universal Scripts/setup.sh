@@ -85,7 +85,7 @@ done
 	paru -S qdl --noconfirm
 	paru -S kde-material-you-colors --noconfirm
 cd ~ && sudo -v
-fastfetch --gen-config
+fastfetch --gen-config-force
 
 cat <<EOF > ~/.config/fastfetch/config.jsonc
 {
@@ -242,7 +242,7 @@ elif command -v apt >/dev/null 2>&1; then
 	sudo systemctl enable NetworkManager
 	sudo systemctl enable power-profiles-daemon.service
 	sudo -v
-	fastfetch --gen-config
+	fastfetch --gen-config-force
 cat <<EOF > ~/.config/fastfetch/config.jsonc
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
@@ -295,8 +295,8 @@ do
 	case $opt in
 		"Yes")
 			sudo apt install ssh -y
-			sudo systemctl enable ssh
-			sudo systemctl start ssh
+			sudo systemctl enable sshd
+			sudo systemctl start sshd
 			break
 			;;
 		"No")
@@ -397,7 +397,7 @@ elif command -v dnf >/dev/null 2>&1; then
 	clear
 	sudo flatpak install flathub org.localsend.localsend_app -y
 
-	fastfetch --gen-config
+	fastfetch --gen-config-force
 cat <<EOF > ~/.config/fastfetch/config.jsonc
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
@@ -441,6 +441,7 @@ do
 		esac
 	done
 
+clear
 
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
 "
@@ -450,8 +451,8 @@ do
 	case $opt in
 		"Yes")
 			sudo dnf install ssh -y
-			sudo systemctl enable ssh
-			sudo systemctl start ssh
+			sudo systemctl enable sshd
+			sudo systemctl start sshd
 			break
 			;;
 		"No")
