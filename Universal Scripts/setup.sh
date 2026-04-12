@@ -22,7 +22,7 @@ rm -rf ~/paru
 
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
 "
-options=()"Yes" "No")
+options=("Yes" "No")
 select opt in "${options[@]}"
 do
 	case $opt in
@@ -39,7 +39,7 @@ do
 
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
 "
-options=()"Yes" "No")
+options=("Yes" "No")
 select opt in "${options[@]}"
 do
 	case $opt in
@@ -272,7 +272,7 @@ fastfetch
 
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
 "
-options=()"Yes" "No")
+options=("Yes" "No")
 select opt in "${options[@]}"
 do
 	case $opt in
