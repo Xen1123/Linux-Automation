@@ -5,4 +5,4 @@
 
 - If You Do Use Arch With Systemd, Come Here!
   - [My Arch Linux Repository](https://github.com/Xen1123/SimpleLinux-Arch)
-  - [Universal Setup Script For Arch, Debian/Ubuntu, and Fedora](https://github.com/Xen1123/Linux-Automation/Universal)
+  - [Universal Setup Script For Arch, Debian/Ubuntu, and Fedora](https://github.com/Xen1123/Linux-Automation/Universal%20Scripts/Setup.sh)
