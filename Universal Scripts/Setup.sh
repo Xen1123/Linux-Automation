@@ -109,9 +109,9 @@ EOF
 			break
 			;;
 		"No")
-			break
 			echo "alias pacman='sudo pacman'" >> ~/.bashrc
 			echo "fastfetch" >> ~/.bashrc
+			break
 			;;
 		*)
 			echo "Invalid Option: $REPLY"
@@ -346,10 +346,10 @@ EOF
 			break
 			;;
 		"No")
-			break
 			echo "alias apt='sudo nala'" >> ~/.bashrc
 			echo "alias nala='sudo nala'" >> ~/.bashrc
 			echo "fastfetch" >> ~/.bashrc
+			break
 			;;
 		*)
 			echo "Invalid Option: $REPLY"
@@ -431,7 +431,7 @@ setup_fastfetch
 
 clear
 fastfetch
-
+break
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
 "
 options=("Yes" "No")
@@ -488,9 +488,9 @@ EOF
 			break
 			;;
 		"No")
-			break
 			echo "alias dnf='sudo dnf'" >> ~/.bashrc
 			echo "fastfetch" >> ~/.bashrc
+			break
 			;;
 		*)
 			echo "Invalid Option: $REPLY"
