@@ -48,8 +48,11 @@ rm -rf ~/paru
 		git clone https://aur.archlinux.org/paru.git || { echo "Clone Failed! Please Install Git And Dependencies!"; exit 1; }
 		cd ~/paru
         clear
-        echo "Installing paru (An AUR Helper Written In Rust)" && sudo -v
+        echo "Installing paru (An AUR Helper Written In Rust) Click Any Key To Continue!"
+		read -n 1 -s
 		makepkg -si --noconfirm
+	cd ..
+rm -rf ~/paru
 			sudo -v
 
 clear
