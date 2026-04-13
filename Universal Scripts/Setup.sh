@@ -251,7 +251,7 @@ elif command -v apt >/dev/null 2>&1; then
     sleep 2
     clear
 		sudo apt update && sudo apt upgrade -y
-		sudo apt install wl-clipboard qdl network-manager libfuse2 7zip fastfetch curl eog acpi flatpak vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
+		sudo apt install nala wl-clipboard qdl network-manager libfuse2 7zip fastfetch curl eog acpi flatpak vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		sudo apt remove konqueror -y
 		sudo apt autoremove -y
@@ -337,13 +337,17 @@ do
 			cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
 fastfetch
-alias apt 'sudo apt'
+alias apt 'sudo nala'
+alias nala 'sudo nala'
 EOF
 			chsh -s /usr/bin/fish
 			break
 			;;
 		"No")
 			break
+			echo "alias apt='sudo nala'" >> ~/.bashrc
+			echo "alias nala='sudo nala'" >> ~/.bashrc
+			echo "fastfetch" >> ~/.bashrc
 			;;
 		*)
 			echo "Invalid Option: $REPLY"
