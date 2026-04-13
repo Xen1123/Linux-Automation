@@ -49,7 +49,7 @@ rm -rf ~/paru
 		cd ~/paru
         clear
         echo "Installing paru (An AUR Helper Written In Rust)" && sudo -v
-		makepkg -si --noconfirm >/dev/null 2>&1
+		makepkg -si --noconfirm
 			sudo -v
 
 clear
