@@ -1,4 +1,38 @@
 #!/bin/bash
+
+setup_fastfetch() {
+	rm -rf ~/.config/fastfetch
+	mkdir -p ~/.config/fastfetch
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
+}
+
+BASE_PKGS="wget curl git 7zip nano btop fastfetch wl-clipboard"
+SYS_TOOLS="acpi power-profiles-daemon usbutils"
+
+
 echo "This Script Sets Up Your System If You Use Arch, Debian, OR Fedora! (Press Any Key To Continue)"
 read -n 1 -s
 echo "On A Device With A Browser, Please Go To 'https://github.com/Xen1123/Linux-Automation/tree/main/Universal%20Scripts/Look-At-Me.md' Before Continuing! (Press Any Key To Continue)"
@@ -7,7 +41,7 @@ if command -v pacman >/dev/null 2>&1 && command -v systemctl >/dev/null 2>&1; th
   echo "Arch Found (With Systemd) !"
     sleep 2
     clear
-      sudo pacman -S wget okular eog wl-clipboard curl 7zip git acpi power-profiles-daemon base-devel bat nano btop vim scrcpy fastfetch gvfs usbutils yt-dlp plasma networkmanager flatpak sddm konsole dolphin --needed --noconfirm || { echo "You are NOT connected to the internet!"; exit 1; }
+      sudo pacman -S $BASE_PKGS $SYS_TOOLS okular eog base-devel bat vim scrcpy gvfs yt-dlp plasma networkmanager flatpak sddm konsole dolphin --needed --noconfirm || { echo "You are NOT connected to the internet!"; exit 1; }
 cd
 sudo -v
 rm -rf ~/paru
@@ -94,30 +128,7 @@ fastfetch --gen-config-force
 
 clear
 
-cat <<EOF > ~/.config/fastfetch/config.jsonc
-{
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "modules": [
-    "title",
-	"separator",
-	"os",
-	"host",
-	"kernel",
-	"uptime",
-	"packages",
-	"terminal",
-	"cpu",
-	"gpu",
-	"memory",
-	"swap",
-	"disk",
-	"localip",
-	"battery",
-	"break",
-	"colors"
-  ]
-}
-EOF
+setup_fastfetch
 
 sudo systemctl enable NetworkManager
 sudo systemctl enable sddm.service
@@ -249,31 +260,9 @@ elif command -v apt >/dev/null 2>&1; then
 	sudo systemctl enable NetworkManager
 	sudo systemctl enable power-profiles-daemon.service
 	sudo -v
-	fastfetch --gen-config-force
-cat <<EOF > ~/.config/fastfetch/config.jsonc
-{
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "modules": [
-    "title",
-	"separator",
-	"os",
-	"host",
-	"kernel",
-	"uptime",
-	"packages",
-	"terminal",
-	"cpu",
-	"gpu",
-	"memory",
-	"swap",
-	"disk",
-	"localip",
-	"battery",
-	"break",
-	"colors"
-  ]
-}
-EOF
+
+setup_fastfetch
+
 clear
 fastfetch
 
@@ -432,31 +421,8 @@ elif command -v dnf >/dev/null 2>&1; then
 	clear
 	sudo flatpak install flathub org.localsend.localsend_app -y
 
-	fastfetch --gen-config-force
-cat <<EOF > ~/.config/fastfetch/config.jsonc
-{
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "modules": [
-    "title",
-	"separator",
-	"os",
-	"host",
-	"kernel",
-	"uptime",
-	"packages",
-	"terminal",
-	"cpu",
-	"gpu",
-	"memory",
-	"swap",
-	"disk",
-	"localip",
-	"battery",
-	"break",
-	"colors"
-  ]
-}
-EOF
+setup_fastfetch
+
 clear
 fastfetch
 
