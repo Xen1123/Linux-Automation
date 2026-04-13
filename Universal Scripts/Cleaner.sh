@@ -11,6 +11,7 @@ if command -v pacman >/dev/null 2>&1; then
     if command -v fastfetch >/dev/null 2>&1; then
         fastfetch
     fi
+        
         sudo rm -rf /var/cache/pacman/pkg/*
         sudo pacman -Sc --noconfirm
     clear
@@ -21,6 +22,7 @@ elif command -v apt >/dev/null 2>&1; then
     if command -v fastfetch >/dev/null 2>&1; then
         fastfetch
     fi
+        
         sudo apt clean -y
         sudo apt autoremove -y
     clear
@@ -31,6 +33,7 @@ elif command -v dnf >/dev/null 2>&1; then
     if command -v fastfetch >/dev/null 2>&1; then
         fastfetch
     fi
+        
         sudo dnf clean all -y
     clear
 fi
