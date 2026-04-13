@@ -240,7 +240,7 @@ elif command -v apt >/dev/null 2>&1; then
     sleep 2
     clear
 		sudo apt update && sudo apt upgrade -y
-		sudo apt install sddm wl-clipboard qdl network-manager libfuse2 7zip task-kde-desktop fastfetch curl eog acpi flatpak plasma-discover-backend-flatpak discover vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
+		sudo apt install wl-clipboard qdl network-manager libfuse2 7zip fastfetch curl eog acpi flatpak vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		sudo apt remove konqueror -y
 		sudo apt autoremove -y
@@ -274,6 +274,25 @@ cat <<EOF > ~/.config/fastfetch/config.jsonc
   ]
 }
 EOF
+clear
+fastfetch
+
+PS3="Would You Like To Install KDE? (A Desktop Environment That Actually Lets You Use Your Computer Like Windows Instead Of Living In A Black Box)
+"
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo apt install task-kde-desktop sddm plasma-discover-backend-flatpak discover
+			break
+			;;
+		"No")
+			break
+			;;
+		esac
+	done
+
 clear
 fastfetch
 
