@@ -110,6 +110,8 @@ EOF
 			;;
 		"No")
 			break
+			echo "alias pacman='sudo pacman'" >> ~/.bashrc
+			echo "fastfetch" >> ~/.bashrc
 			;;
 		*)
 			echo "Invalid Option: $REPLY"
@@ -487,6 +489,8 @@ EOF
 			;;
 		"No")
 			break
+			echo "alias dnf='sudo dnf'" >> ~/.bashrc
+			echo "fastfetch" >> ~/.bashrc
 			;;
 		*)
 			echo "Invalid Option: $REPLY"
