@@ -57,6 +57,29 @@ rm -rf ~/paru
 
 clear
 
+PS3="Would You Like Bluetooth?
+"
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Yes")
+			sudo pacman -S bluez bluez-utils --noconfirm
+			sudo systemctl enable --now bluetooth
+bluetoothctl <<EOF
+power on
+agent on
+default-agent
+exit
+EOF
+			break
+			;;
+		"No")
+			break
+			;;
+		esac
+	done
+
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
 "
 options=("Yes" "No")
