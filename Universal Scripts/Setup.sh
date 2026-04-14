@@ -552,3 +552,20 @@ else
 	echo "Sorry, This Script Does Not Support Your System, Either You're Using A Supported Distro Base But Don't Have Systemd, Or You Aren't Using Arch-Based, Debian Based, Or Fedora Based"
 	exit 1
 fi
+
+  PS3="Would You Like To Know What Distro You Use?
+	  "
+	  options=("Yes" "No")
+	  select opt in "${options[@]}"
+	  do
+	      case $opt in
+	          "Yes")
+	              grep "PRETTY" /etc/os-release
+	              exit
+	              ;;
+	          "No")
+	              exit
+	              ;;
+	          esac
+	      done
+fi
