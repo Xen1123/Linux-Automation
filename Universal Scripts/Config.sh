@@ -1,0 +1,46 @@
+#!/bin/bash
+
+echo "This Script Simply Backs Up Existing Configs And Replaces Them, Click Any Key To Continue!"
+read -n 1 -s
+
+mkdir -p ~/Config_Backup
+cp -r ~/.config/fastfetch/ ~/Config_Backup
+cp -r ~/.config/fish ~/Config_Backup
+
+rm -rf ~/.config/fastfetch
+	mkdir -p ~/.config/fastfetch
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+"$schema": "https://github.com/fastfetch-cli/fastfetch/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
+
+rm -rf ~/.config/fish
+mkidr -p ~/.config/fish
+
+  cat <<EOF > ~/.config/fish/config.fish
+set fish_greeting ""
+fastfetch
+alias pacman 'sudo pacman'
+alias apt 'sudo apt'
+alias dnf 'sudo dnf'
+EOF
