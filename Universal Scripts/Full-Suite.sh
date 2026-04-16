@@ -604,6 +604,34 @@ EOF
                 sudo pacman -S openssh --noconfirm
                     sudo systemctl enable sshd && sudo systemctl start sshd
                 fi
+            if command -v apt /dev/null 2>&1; then
+                sudo apt install bluetooth bluez
+                sudo systemctl enable bluetooth
+                sudo systemctl start bluetooth
+                bluetoothctl <<EOF
+power on
+agent on
+default-agent
+exit
+EOF
+                sudo apt install ssh -y
+			          sudo systemctl enable ssh
+			          sudo systemctl start sshd
+			          fi
+            if command -v dnf /dev/null 2>&1; then
+                sudo dnf install bluez bluez-tools
+                sudo systemctl enable bluetoothctl
+                sudo systemctl start bluetoothctl
+                bluetoothctl <<EOF
+power on
+agent on
+default-agent
+exit
+EOF
+                sudo dnf install ssh -y
+			          sudo systemctl enable sshd
+			          sudo systemctl start sshd
+			     fi
                 exit
                 ;;
             esac
