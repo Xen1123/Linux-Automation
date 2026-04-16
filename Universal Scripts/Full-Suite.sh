@@ -620,8 +620,8 @@ EOF
 			          fi
             if command -v dnf /dev/null 2>&1; then
                 sudo dnf install bluez bluez-tools
-                sudo systemctl enable bluetoothctl
-                sudo systemctl start bluetoothctl
+                sudo systemctl enable bluetooth
+                sudo systemctl start bluetooth
                 bluetoothctl <<EOF
 power on
 agent on
