@@ -271,7 +271,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo apt install task-kde-desktop sddm plasma-discover-backend-flatpak discover
+			sudo nala install task-kde-desktop sddm plasma-discover-backend-flatpak discover
 			break
 			;;
 		"No")
@@ -290,7 +290,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo apt install adb fastboot heimdall-flash -y
+			sudo nala install adb fastboot heimdall-flash -y
 			break
 			;;
 		"No")
@@ -309,7 +309,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo apt install ssh -y
+			sudo nala install ssh -y
 			sudo systemctl enable ssh
 			sudo systemctl start ssh
 			break
@@ -330,7 +330,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo apt install fish -y
+			sudo nala install fish -y
 			mkdir -p ~/.config/fish
 			cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
@@ -365,14 +365,14 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Firefox")
-			sudo apt install firefox -y
+			sudo nala install firefox -y
 			clear
 			fastfetch
 			break
 			;;
 		"Chrome")
 			wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-			sudo apt install ./google-chrome-stable_current_amd64.deb -y
+			sudo nala install ./google-chrome-stable_current_amd64.deb -y
 			rm google-chrome*
 			clear
 			fastfetch
