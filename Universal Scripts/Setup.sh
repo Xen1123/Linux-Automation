@@ -1,57 +1,24 @@
 #!/bin/bash
 
-setup_fastfetch() {
-	rm -rf ~/.config/fastfetch
-	mkdir -p ~/.config/fastfetch
-	cat <<EOF > ~/.config/fastfetch/config.jsonc
-{
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "modules": [
-    "title",
-	"separator",
-	"os",
-	"host",
-	"kernel",
-	"uptime",
-	"packages",
-	"terminal",
-	"cpu",
-	"gpu",
-	"memory",
-	"swap",
-	"disk",
-	"localip",
-	"battery",
-	"break",
-	"colors"
-  ]
-}
-EOF
-}
-
-BASE_PKGS="wget curl git 7zip nano btop fastfetch wl-clipboard"
-SYS_TOOLS="acpi power-profiles-daemon usbutils"
-
-
 echo "This Script Sets Up Your System If You Use Arch, Debian, OR Fedora! (Press Any Key To Continue)"
-read -n 1 -s
+read -r -n 1 -s
 echo "On A Device With A Browser, Please Go To 'https://github.com/Xen1123/Linux-Automation/tree/main/Universal%20Scripts/Look-At-Me.md' Before Continuing! (Press Any Key To Continue)"
-read -n 1 -s
+read -r -n 1 -s
 if command -v pacman >/dev/null 2>&1 && command -v systemctl >/dev/null 2>&1; then
   echo "Arch Found (With Systemd) !"
     sleep 2
     clear
-      sudo pacman -S $BASE_PKGS $SYS_TOOLS okular eog base-devel bat vim scrcpy gvfs yt-dlp plasma networkmanager flatpak sddm konsole dolphin --needed --noconfirm || { echo "You are NOT connected to the internet!"; exit 1; }
-cd
+      sudo pacman -S wget curl git 7zip nano btop fastfetch wl-clipboard acpi power-profiles-daemon usbutils okular eog base-devel bat vim scrcpy gvfs yt-dlp plasma networkmanager flatpak sddm konsole dolphin --needed --noconfirm || { echo "You are NOT connected to the internet!"; exit 1; }
+cd /home/"$USER" || exit
 sudo -v
-rm -rf ~/paru
+mv ~/paru ~/paru-backup || true
 		git clone https://aur.archlinux.org/paru.git || { echo "Clone Failed! Please Install Git And Dependencies!"; exit 1; }
-		cd ~/paru
+		cd ~/paru || exit && echo "No Folder Named Paru"
         clear
         echo "Installing paru (An AUR Helper Written In Rust) Click Any Key To Continue!"
-		read -n 1 -s
+		read -r -n 1 -s
 		makepkg -si --noconfirm
-	cd ..
+	cd /home/"$USER" || exit
 rm -rf ~/paru
 			sudo -v
 
@@ -152,11 +119,8 @@ clear
 	paru -S qdl --noconfirm
 	paru -S kde-material-you-colors --noconfirm
 cd ~ && sudo -v
-fastfetch --gen-config-force
 
 clear
-
-setup_fastfetch
 
 sudo systemctl enable NetworkManager
 sudo systemctl enable sddm.service
@@ -250,6 +214,34 @@ do
 	done
 
 clear
+
+	rm -rf ~/.config/fastfetch
+	mkdir -p ~/.config/fastfetch
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
+
 echo "Changing your shell typically requires a restart for it to fully take affect, would you like to reboot?"
 PS3='What Would You Like To Do?
 '
@@ -289,7 +281,32 @@ elif command -v apt >/dev/null 2>&1; then
 	sudo systemctl enable power-profiles-daemon.service
 	sudo -v
 
-setup_fastfetch
+	rm -rf ~/.config/fastfetch
+	mkdir -p ~/.config/fastfetch
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
 
 clear
 fastfetch
@@ -301,7 +318,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo apt install task-kde-desktop sddm plasma-discover-backend-flatpak discover
+			sudo nala install task-kde-desktop sddm plasma-discover-backend-flatpak discover
 			break
 			;;
 		"No")
@@ -320,7 +337,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo apt install adb fastboot heimdall-flash -y
+			sudo nala install adb fastboot heimdall-flash -y
 			break
 			;;
 		"No")
@@ -339,7 +356,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo apt install ssh -y
+			sudo nala install ssh -y
 			sudo systemctl enable ssh
 			sudo systemctl start ssh
 			break
@@ -360,7 +377,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo apt install fish -y
+			sudo nala install fish -y
 			mkdir -p ~/.config/fish
 			cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
@@ -395,14 +412,14 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Firefox")
-			sudo apt install firefox -y
+			sudo nala install firefox -y
 			clear
 			fastfetch
 			break
 			;;
 		"Chrome")
 			wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-			sudo apt install ./google-chrome-stable_current_amd64.deb -y
+			sudo nala install ./google-chrome-stable_current_amd64.deb -y
 			rm google-chrome*
 			clear
 			fastfetch
@@ -453,11 +470,36 @@ elif command -v dnf >/dev/null 2>&1; then
 	clear
 	sudo flatpak install flathub org.localsend.localsend_app -y
 
-setup_fastfetch
+	rm -rf ~/.config/fastfetch
+	mkdir -p ~/.config/fastfetch
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
 
 clear
 fastfetch
-break
+
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
 "
 options=("Yes" "No")
@@ -591,4 +633,3 @@ fi
 	              ;;
 	          esac
 	      done
-fi
