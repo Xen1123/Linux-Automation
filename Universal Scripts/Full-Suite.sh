@@ -126,7 +126,32 @@ fastfetch --gen-config-force
 
 clear
 
-setup_fastfetch
+	rm -rf ~/.config/fastfetch
+	mkdir -p ~/.config/fastfetch
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
 
 sudo systemctl enable NetworkManager
 sudo systemctl enable sddm.service
@@ -259,7 +284,32 @@ elif command -v apt >/dev/null 2>&1; then
 	sudo systemctl enable power-profiles-daemon.service
 	sudo -v
 
-setup_fastfetch
+	rm -rf ~/.config/fastfetch
+	mkdir -p ~/.config/fastfetch
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
 
 clear
 fastfetch
@@ -423,7 +473,32 @@ elif command -v dnf >/dev/null 2>&1; then
 	clear
 	sudo flatpak install flathub org.localsend.localsend_app -y
 
-setup_fastfetch
+	rm -rf ~/.config/fastfetch
+	mkdir -p ~/.config/fastfetch
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"kernel",
+	"uptime",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"memory",
+	"swap",
+	"disk",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
 
 clear
 fastfetch
