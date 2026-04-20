@@ -274,7 +274,7 @@ elif command -v apt >/dev/null 2>&1; then
     sleep 2
     clear
 		sudo apt update && sudo apt upgrade -y
-		sudo apt install nala wl-clipboard qdl network-manager libfuse2 7zip fastfetch curl eog acpi flatpak vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
+		sudo apt install nala wl-clipboard qdl network-manager libfuse2 7zip curl eog acpi flatpak vim bat nano power-profiles-daemon gvfs -y || { echo "You are NOT connected to the internet!"; exit 1; }
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		sudo apt remove konqueror -y
 		sudo apt autoremove -y
@@ -284,35 +284,7 @@ elif command -v apt >/dev/null 2>&1; then
 	sudo systemctl enable power-profiles-daemon.service
 	sudo -v
 
-	rm -rf ~/.config/fastfetch
-	mkdir -p ~/.config/fastfetch
-	cat <<EOF > ~/.config/fastfetch/config.jsonc
-{
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "modules": [
-    "title",
-	"separator",
-	"os",
-	"host",
-	"kernel",
-	"uptime",
-	"packages",
-	"terminal",
-	"cpu",
-	"gpu",
-	"memory",
-	"swap",
-	"disk",
-	"localip",
-	"battery",
-	"break",
-	"colors"
-  ]
-}
-EOF
-
 clear
-fastfetch
 
 PS3="Would You Like To Install KDE? (A Desktop Environment That Actually Lets You Use Your Computer Like Windows Instead Of Living In A Black Box)
 "
@@ -331,7 +303,6 @@ do
 	done
 
 clear
-fastfetch
 
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
 "
@@ -350,7 +321,6 @@ do
 	done
 
 clear
-fastfetch
 
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
 "
@@ -371,7 +341,6 @@ do
 	done
 
 clear
-fastfetch
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?
 "
@@ -384,7 +353,6 @@ do
 			mkdir -p ~/.config/fish
 			cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
-fastfetch
 alias apt 'sudo nala'
 alias nala 'sudo nala'
 EOF
@@ -394,7 +362,6 @@ EOF
 		"No")
 			echo "alias apt='sudo nala'" >> ~/.bashrc
 			echo "alias nala='sudo nala'" >> ~/.bashrc
-			echo "fastfetch" >> ~/.bashrc
 			break
 			;;
 		*)
@@ -406,7 +373,6 @@ done
 sudo -v
 
 clear
-fastfetch
 
 PS3="What Browser Would You Like?
 "
@@ -438,7 +404,6 @@ do
 	done
 
 clear
-fastfetch
 
 PS3="Would You Like To Reboot (Recommended), Go Straight To KDE, Or Exit The Script Now?
 "
