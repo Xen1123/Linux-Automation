@@ -383,7 +383,6 @@ do
 		"Firefox")
 			sudo nala install firefox -y
 			clear
-			fastfetch
 			break
 			;;
 		"Chrome")
@@ -391,7 +390,6 @@ do
 			sudo nala install ./google-chrome-stable_current_amd64.deb -y
 			rm google-chrome*
 			clear
-			fastfetch
 			break
 			;;
 		"Skip")
