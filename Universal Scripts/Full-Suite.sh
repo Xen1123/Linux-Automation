@@ -20,7 +20,7 @@ mv ~/paru ~/paru-backup || true
         clear
         echo "Installing paru (An AUR Helper Written In Rust) Click Any Key To Continue!"
 		read -r -n 1 -s
-		makepkg -si --noconfirm
+		makepkg -si --noconfirm || { clear; echo "This Likely Failed Because You Ran The Script As Root Or You're The Root User Instead Of A Standard User"; cd /home/"$USER" || true; rm -rf paru; exit 1; }
 	cd /home/"$USER" || exit
 rm -rf ~/paru
 			sudo -v
