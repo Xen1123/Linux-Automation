@@ -6,7 +6,7 @@ echo "This Script Updates Your Arch, Debian, Or Fedora System! Press Any Key To 
 if command -v pacman >/dev/null 2>&1; then
     echo "Arch Linux Found! Now Updating Silently!"
         sleep 1.5
-    sudo pacman -Syyu --noconfirm >/dev/null 2>>"$HOME/pacman_error.log1" || { clear; echo "You Have No Internet Or You Lack Sudo!"; exit 1; }
+    sudo pacman -Syyu --noconfirm >/dev/null 2>>"$HOME/pacman_error.log" || { clear; echo "You Have No Internet Or You Lack Sudo!"; exit 1; }
         if command -v paru >/dev/null 2>&1; then
             paru -Syyu --noconfirm >/dev/null 2>&1
         fi
