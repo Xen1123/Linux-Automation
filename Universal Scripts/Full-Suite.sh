@@ -88,8 +88,8 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo pacman -S bluez bluez-utils --noconfirm
-			sudo systemctl enable --now bluetooth
+			sudo pacman -S bluez bluez-utils --noconfirm >/dev/null 2>&1 || { echo "Failed To Install Bluetooth, Please Check Your Internet Connection!"; exit 1; }
+			sudo systemctl enable --now bluetooth >/dev/null 2>&1 || true
 bluetoothctl <<EOF
 power on
 agent on
@@ -121,7 +121,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo pacman -S android-tools heimdall android-udev gvfs-mtp --noconfirm
+			sudo pacman -S android-tools heimdall android-udev gvfs-mtp --noconfirm >/dev/null 2>&1 || { echo "Failed To Install ADB And Fastboot, Please Check Your Internet Connection!"; exit 1; }
 			break
 			;;
 		"No")
@@ -147,9 +147,9 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo pacman -S openssh
-			sudo systemctl enable sshd
-			sudo systemctl start sshd
+			sudo pacman -S openssh --noconfirm >/dev/null 2>&1 || { echo "Failed To Install SSH, Please Check Your Internet Connection!"; exit 1; }
+			sudo systemctl enable sshd >/dev/null 2>&1 || true
+			sudo systemctl start sshd >/dev/null 2>&1 || true
 			break
 			;;
 		"No")
@@ -174,7 +174,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo pacman -S fish --noconfirm
+			sudo pacman -S fish --noconfirm >/dev/null 2>&1 || { echo "Failed To Install Fish Shell, Please Check Your Internet Connection!"; exit 1; }
 			mkdir -p ~/.config/fish
 			cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
@@ -412,7 +412,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Yes")
-			sudo nala install task-kde-desktop sddm plasma-discover-backend-flatpak discover >/dev/null 2>&1 || { echo "Failed To Install KDE, Please Check Your Internet Connection!"; exit 1; }
+			sudo nala install task-kde-desktop sddm plasma-discover-backend-flatpak discover -y >/dev/null 2>&1 || { echo "Failed To Install KDE, Please Check Your Internet Connection!"; exit 1; }
 			break
 			;;
 		"No")
@@ -828,7 +828,7 @@ EOF
                     sudo systemctl enable sshd && sudo systemctl start sshd
                 fi
             if command -v apt /dev/null 2>&1; then
-                sudo apt install bluetooth bluez
+                sudo apt install bluetooth bluez -y
                 sudo systemctl enable bluetooth
                 sudo systemctl start bluetooth
                 bluetoothctl <<EOF
@@ -842,7 +842,7 @@ EOF
 			          sudo systemctl start sshd
 			          fi
             if command -v dnf /dev/null 2>&1; then
-                sudo dnf install bluez bluez-tools
+                sudo dnf install bluez bluez-tools -y
                 sudo systemctl enable bluetooth
                 sudo systemctl start bluetooth
                 bluetoothctl <<EOF
