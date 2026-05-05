@@ -3,7 +3,6 @@
 setup_fastfetch() {
 	cat <<EOF > ~/.config/fastfetch/config.jsonc
 {
-  {
   "": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "modules": [
     "title",
