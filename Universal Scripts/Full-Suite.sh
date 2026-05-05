@@ -55,7 +55,7 @@ __  _______ _   _
 /_/\_\_____|_| \_|
    10% Done!
 EOF
-mv ~/paru ~/paru-backup || true
+mv ~/paru ~/paru-backup >/dev/null 2>&1 || true
 		git clone https://aur.archlinux.org/paru.git >/dev/null 2>&1 || { echo "Clone Failed! Please Install Git And Dependencies!"; exit 1; }
 		cd ~/paru || { echo "Folder Paru Not Found"; exit 1; }
         clear
