@@ -1,5 +1,31 @@
 #!/bin/bash
 
+setup_fastfetch() {
+	cat <<EOF > ~/.config/fastfetch/config.jsonc
+{
+  {
+  "": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "modules": [
+    "title",
+	"separator",
+	"os",
+	"host",
+	"disk",
+	"memory",
+	"kernel",
+	"packages",
+	"terminal",
+	"cpu",
+	"gpu",
+	"localip",
+	"battery",
+	"break",
+	"colors"
+  ]
+}
+EOF
+}
+
 PS3="Would You Like To Setup Your Whole System (Includes Configs And Bluetooth w/ SSH), Change Configs, Or Setup Bluetooth & SSH?
 "
 options=("Setup Whole System" "Change Configs" "Bluetooth & SSH")
@@ -98,7 +124,7 @@ do
 			mkdir -p ~/.config/fish
 			cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
-fastfetch
+fastfetch --logo vanilla2
 alias pacman 'sudo pacman'
 EOF
 			chsh -s /usr/bin/fish
@@ -128,30 +154,7 @@ clear
 
 	rm -rf ~/.config/fastfetch
 	mkdir -p ~/.config/fastfetch
-	cat <<EOF > ~/.config/fastfetch/config.jsonc
-{
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "modules": [
-    "title",
-	"separator",
-	"os",
-	"host",
-	"kernel",
-	"uptime",
-	"packages",
-	"terminal",
-	"cpu",
-	"gpu",
-	"memory",
-	"swap",
-	"disk",
-	"localip",
-	"battery",
-	"break",
-	"colors"
-  ]
-}
-EOF
+	setup_fastfetch
 
 sudo systemctl enable NetworkManager
 sudo systemctl enable sddm.service
@@ -438,30 +441,7 @@ elif command -v dnf >/dev/null 2>&1; then
 
 	rm -rf ~/.config/fastfetch
 	mkdir -p ~/.config/fastfetch
-	cat <<EOF > ~/.config/fastfetch/config.jsonc
-{
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "modules": [
-    "title",
-	"separator",
-	"os",
-	"host",
-	"kernel",
-	"uptime",
-	"packages",
-	"terminal",
-	"cpu",
-	"gpu",
-	"memory",
-	"swap",
-	"disk",
-	"localip",
-	"battery",
-	"break",
-	"colors"
-  ]
-}
-EOF
+	setup_fastfetch
 
 clear
 fastfetch
@@ -515,7 +495,7 @@ do
 			mkdir -p ~/.config/fish
 			cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
-fastfetch
+fastfetch --logo vanilla2
 alias dnf 'sudo dnf'
 EOF
 			chsh -s /usr/bin/fish

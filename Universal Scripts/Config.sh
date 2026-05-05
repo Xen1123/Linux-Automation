@@ -1,31 +1,29 @@
 #!/bin/bash
 
 echo "This Script Simply Backs Up Existing Configs And Replaces Them, Click Any Key To Continue!"
-read -n 1 -s
+read -r -n 1 -s
 
-mkdir -p ~/Config_Backup
-cp -r ~/.config/fastfetch/ ~/Config_Backup
-cp -r ~/.config/fish ~/Config_Backup
+mkdir -p ~/Config_Backup >/dev/null 2>&1 || true
+cp -r ~/.config/fastfetch/ ~/Config_Backup >/dev/null 2>&1 || true
+cp -r ~/.config/fish ~/Config_Backup >/dev/null 2>&1 || true
 
 rm -rf ~/.config/fastfetch
 	mkdir -p ~/.config/fastfetch
 	cat <<EOF > ~/.config/fastfetch/config.jsonc
 {
-"$schema": "https://github.com/fastfetch-cli/fastfetch/master/doc/json_schema.json",
+  "": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "modules": [
     "title",
 	"separator",
 	"os",
 	"host",
+	"disk",
+	"memory",
 	"kernel",
-	"uptime",
 	"packages",
 	"terminal",
 	"cpu",
 	"gpu",
-	"memory",
-	"swap",
-	"disk",
 	"localip",
 	"battery",
 	"break",
