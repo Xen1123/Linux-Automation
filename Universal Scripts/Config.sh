@@ -33,11 +33,11 @@ rm -rf ~/.config/fastfetch
 EOF
 
 rm -rf ~/.config/fish
-mkidr -p ~/.config/fish
+mkdir -p ~/.config/fish
 
   cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
-fastfetch
+fastfetch --logo vanilla2
 alias pacman 'sudo pacman'
 alias apt 'sudo apt'
 alias dnf 'sudo dnf'
