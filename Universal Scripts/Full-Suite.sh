@@ -64,7 +64,7 @@ do
 	case $opt in
 		"Hyprland")
 			if command -v pacman >/dev/null 2>&1; then
-    sudo pacman -S --noconfirm hyprshot cava hyprpaper hyprland kitty swaync rofi wl-clipboard wlogout swaybg swaylock swayidle grim slurp grimblast mako polkit-gnome xdg-desktop-portal-hyprland xdg-desktop-portal-hyprland >/dev/null 2>&1 || { clear; echo "You are NOT conected to the internet."; exit 1; }
+    sudo pacman -S --noconfirm hyprshot cava hyprpaper hyprland kitty swaync rofi wl-clipboard swaybg swaylock swayidle grim slurp mako polkit-gnome xdg-desktop-portal-hyprland >/dev/null 2>&1 || { clear; echo "You are NOT conected to the internet."; exit 1; }
     mkdir -p ~/.config/hypr >/dev/null 2>&1 || true 
     mkdir -p ~/.config/rofi >/dev/null 2>&1 || true
     mkdir -p ~/.config/kitty >/dev/null 2>&1 || true
