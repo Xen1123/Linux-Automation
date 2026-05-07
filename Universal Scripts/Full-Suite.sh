@@ -77,7 +77,7 @@ do
 echo "background_opacity 0.7" > ~/.config/kitty/kitty.conf
 echo "font_size 10.5" >> ~/.config/kitty/kitty.conf
 
-    cat <<EOF > ~/.config/rofi/config.rasi
+    cat <<'EOF' > ~/.config/rofi/config.rasi
 * {
     font: "Figtree 13";
     g-spacing: 10px;
@@ -181,7 +181,7 @@ message {
 }
 EOF
 
-cat <<EOF > ~/.config/hypr/hyprland.conf
+cat <<'EOF' > ~/.config/hypr/hyprland.conf
 ################
 ### MONITORS ###
 ################
