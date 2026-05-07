@@ -44,6 +44,8 @@ __  _______ _   _
 /_/\_\_____|_| \_|
    0% Done!
 EOF
+	echo "Updating System And Installing Some Stuff"
+	  sudo pacman -Syu --noconfirm >/dev/null 2>&1 || { clear; echo "You are NOT connected to the internet!"; exit 1; }
       sudo pacman -S wget curl git 7zip nano btop fastfetch wl-clipboard acpi power-profiles-daemon usbutils okular eog base-devel bat vim scrcpy gvfs yt-dlp networkmanager --needed --noconfirm >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
 cd /home/"$USER" || exit
 clear
@@ -561,6 +563,7 @@ __  _______ _   _
 /_/\_\_____|_| \_|
   13% Done!
 EOF
+		echo "Installing Paru AUR Helper . . ."
 		makepkg -si --noconfirm >/dev/null 2>&1 || { clear; echo "This Likely Failed Because You Ran The Script As Root Or You're The Root User Instead Of A Standard User"; cd /home/"$USER" || true; rm -rf paru; exit 1; }
 	cd /home/"$USER" || exit
 rm -rf ~/paru
@@ -662,7 +665,8 @@ __  _______ _   _
   65% Done!
 EOF
 
-PS3="Would You Like To Use Fish Shell Instead Of Bash?"
+PS3="Would You Like To Use Fish Shell Instead Of Bash?
+"
 options=("Yes" "No")
 select opt in "${options[@]}"
 do
