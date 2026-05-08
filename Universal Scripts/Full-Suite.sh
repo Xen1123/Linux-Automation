@@ -821,6 +821,10 @@ do
 	esac
 	done
 
+if command -v konsole >/dev/null 2>&1; then
+	paru -S kde-material-you-colors --noconfirm
+fi
+
 clear
 	cat << "EOF"
 __  _______ _   _ 
