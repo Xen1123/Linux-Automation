@@ -525,6 +525,7 @@ case "$SDDM_RESP" in
     [yY])
         echo "Installing SDDM . . ."
         sudo pacman -S sddm --noconfirm >/dev/null 2>&1 || { clear; echo "You are NOT conected to the internet."; exit 1; }
+		paru -S noto-fonts-emoji --noconfirm >/dev/null 2>&1
         sudo systemctl enable sddm.service
         clear
         ;;
