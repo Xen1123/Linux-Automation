@@ -45,7 +45,6 @@ if command -v pacman >/dev/null 2>&1 && command -v systemctl >/dev/null 2>&1; th
    		    0% Done!
 	Updating System And Installing Stuff!
 EOF
-	echo "Updating System And Installing Some Stuff"
 	  sudo pacman -Syu --noconfirm >/dev/null 2>&1 || { clear; echo "You are NOT connected to the internet!"; exit 1; }
       sudo pacman -S wget plasma dolphin konsole discover sddm wl-clipboard curl git 7zip nano btop fastfetch wl-clipboard acpi power-profiles-daemon usbutils okular eog base-devel bat vim scrcpy gvfs yt-dlp networkmanager --needed --noconfirm >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
 cd /home/"$USER" || exit
