@@ -37,12 +37,13 @@ if command -v pacman >/dev/null 2>&1 && command -v systemctl >/dev/null 2>&1; th
     sleep 2
     clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   0% Done!
+		__  _______ _   _ 
+		\ \/ / ____| \ | |
+		\  /|  _| |  \| |
+		/  \| |___| |\  |
+		/_/\_\_____|_| \_|
+   		    0% Done!
+	Updating System And Installing Stuff!
 EOF
 	echo "Updating System And Installing Some Stuff"
 	  sudo pacman -Syu --noconfirm >/dev/null 2>&1 || { clear; echo "You are NOT connected to the internet!"; exit 1; }
