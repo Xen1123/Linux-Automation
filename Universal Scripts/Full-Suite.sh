@@ -37,11 +37,14 @@ if command -v pacman >/dev/null 2>&1 && command -v systemctl >/dev/null 2>&1; th
     sleep 2
     clear
 	cat << "EOF"
-		__  _______ _   _ 
-		\ \/ / ____| \ | |
-		\  /|  _| |  \| |
-		/  \| |___| |\  |
-		/_/\_\_____|_| \_|
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
    		    0% Done!
 	Updating System And Installing Stuff!
 EOF
@@ -50,25 +53,31 @@ EOF
 cd /home/"$USER" || exit
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   10% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    10% Done!
 EOF
 
 mv ~/paru ~/paru-backup >/dev/null 2>&1 || true
 		git clone https://aur.archlinux.org/paru.git >/dev/null 2>&1 || { echo "Clone Failed! Please Install Git And Dependencies!"; exit 1; }
 		cd ~/paru || { echo "Folder Paru Not Found"; exit 1; }
         clear
-			cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  13% Done!
+	cat << "EOF"
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    13% Done!
 EOF
 		echo "Installing Paru AUR Helper . . ."
 		makepkg -si --noconfirm >/dev/null 2>&1 || { clear; echo "This Likely Failed Because You Ran The Script As Root Or You're The Root User Instead Of A Standard User"; cd /home/"$USER" || true; rm -rf paru; exit 1; }
@@ -77,12 +86,16 @@ rm -rf ~/paru
 
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  35% Done!
+	cat << "EOF"
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    35% Done!
 EOF
 
 PS3="Would You Like Bluetooth?
@@ -110,12 +123,15 @@ EOF
 
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  42% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    42% Done!
 EOF
 
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
@@ -136,14 +152,16 @@ do
 
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  60% Done!
-EOF
 
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    60% Done!
+EOF
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
 "
 options=("Yes" "No")
@@ -164,12 +182,15 @@ do
 
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  65% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    65% Done!
 EOF
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?
@@ -202,12 +223,15 @@ done
 
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  76% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    76% Done!
 EOF
 
 	paru -S balena-etcher --noconfirm >/dev/null 2>&1 || true
@@ -218,12 +242,15 @@ cd /home/"$USER" || exit
 fastfetch --gen-config-force >/dev/null 2>&1 || true
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  80% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    80% Done!
 EOF
 
 	rm -rf ~/.config/fastfetch
@@ -294,12 +321,15 @@ done
 
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  90% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    90% Done!
 EOF
 
 
@@ -331,12 +361,15 @@ do
 
 clear
 	cat << "EOF"
-__  _______ _   _ 
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-  100% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    100% Done!
 EOF
 sudo systemctl enable NetworkManager power-profiles-daemon.service >/dev/null 2>&1 || true
 if command -v sddm; then
@@ -368,44 +401,56 @@ elif command -v apt >/dev/null 2>&1; then
     sleep 2
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-0% Done! Currently Working!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+0% Done! Currently Updating Silently!
 EOF
 		sudo apt update && sudo apt upgrade -y >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   12% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    12% Done!
 EOF
 		sudo apt install nala wl-clipboard qdl network-manager libfuse2 7zip curl eog acpi flatpak vim bat nano power-profiles-daemon gvfs -y >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   25% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    25% Done!
 EOF
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		sudo apt remove konqueror -y >/dev/null 2>&1 || true
 		sudo apt autoremove -y >/dev/null 2>&1 || true
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   33% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    33% Done!
 EOF
 	sudo systemctl enable NetworkManager power-profiles-daemon.service >/dev/null 2>&1 || true
 
@@ -427,12 +472,15 @@ do
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   46% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    46% Done!
 EOF
 
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
@@ -453,12 +501,15 @@ do
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
-/  \| |___| |\  |
-/_/\_\_____|_| \_|
-   55% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    55% Done!
 EOF
 
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
@@ -481,12 +532,15 @@ do
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   67% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    67% Done!
 EOF
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?
@@ -519,12 +573,15 @@ done
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   75% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    75% Done!
 EOF
 
 PS3="What Browser Would You Like?
@@ -556,12 +613,15 @@ do
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   90% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    90% Done!
 EOF
 
 PS3="Would You Like To Reboot (Recommended), Go Straight To KDE, Or Exit The Script Now?
@@ -591,35 +651,44 @@ elif command -v dnf >/dev/null 2>&1; then
   	sleep 2
   	    clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   0% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   	0% Done! Updating Silently!
 EOF
 		sudo dnf update -y >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
 		sudo dnf install yt-dlp fastfetch nano vim wl-clipboard curl flatpak 7zip git acpi power-profiles-daemon usbutils -y --allowerasing >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   12% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    12% Done!
 EOF
 		sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	clear
 	sudo flatpak install flathub org.localsend.localsend_app -y >/dev/null 2>&1 || true
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   19% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    19% Done!
 EOF
 	rm -rf ~/.config/fastfetch
 	mkdir -p ~/.config/fastfetch
@@ -646,12 +715,15 @@ do
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   24% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    24% Done!
 EOF
 
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
@@ -674,12 +746,15 @@ do
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   30% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    30% Done!
 EOF
 
 PS3="Would You Like To Use Fish Shell Instead Of Bash?
@@ -712,12 +787,15 @@ done
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   57% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    57% Done!
 EOF
 
 PS3="What Browser Would You Like?
@@ -745,12 +823,15 @@ do
 
     clear
 	cat << "EOF"
-__  _______ _   _ 	
-\ \/ / ____| \ | |
- \  /|  _| |  \| |
- /  \| |___| |\  |
-/_/\_\_____|_| \_|
-   90% Done!
+
+	██╗  ██╗███████╗███╗   ██╗
+	╚██╗██╔╝██╔════╝████╗  ██║
+	 ╚███╔╝ █████╗  ██╔██╗ ██║
+	 ██╔██╗ ██╔══╝  ██║╚██╗██║
+	██╔╝ ██╗███████╗██║ ╚████║
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
+                          
+   		    90% Done!
 EOF
 
 PS3="Would You Like To Reboot (Recommended) Or Exit The Script Now?
