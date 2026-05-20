@@ -27,6 +27,12 @@ setup_fastfetch() {
 EOF
 }
 
+if ! command -v systemctl >/dev/null 2>&1; then
+	echo "You Don't Use Systemd, So This Script Will Fail!"
+	clear
+	exit
+fi
+
 PS3="Would You Like To Setup Your Whole System (Includes Configs And Bluetooth w/ SSH), Change Configs, Or Setup Bluetooth & SSH?
 "
 options=("Setup Whole System" "Change Configs" "Bluetooth & SSH")
