@@ -52,12 +52,12 @@ if command -v pacman >/dev/null 2>&1 && command -v systemctl >/dev/null 2>&1; th
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    0% Done!
 	Updating System And Installing Stuff!
 EOF
 	  sudo pacman -Syu --noconfirm >/dev/null 2>&1 || { clear; echo "You are NOT connected to the internet!"; exit 1; }
-      sudo pacman -S wget python plasma dolphin konsole discover sddm wl-clipboard curl git 7zip nano btop fastfetch wl-clipboard acpi power-profiles-daemon usbutils okular eog base-devel bat vim scrcpy gvfs yt-dlp networkmanager --needed --noconfirm >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
+      sudo pacman -S wget kwalletmanager python plasma dolphin konsole discover sddm wl-clipboard curl git 7zip nano btop fastfetch wl-clipboard acpi power-profiles-daemon usbutils okular eog base-devel bat vim scrcpy gvfs yt-dlp networkmanager --needed --noconfirm >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
 cd /home/"$USER" || exit
 clear
 	cat << "EOF"
@@ -68,7 +68,7 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    10% Done!
 EOF
 
@@ -84,7 +84,7 @@ mv ~/paru ~/paru-backup >/dev/null 2>&1 || true
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    13% Done!
 EOF
 		echo "Installing Paru AUR Helper . . ."
@@ -102,7 +102,7 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    35% Done!
 EOF
 
@@ -138,7 +138,7 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    42% Done!
 EOF
 
@@ -167,7 +167,7 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    60% Done!
 EOF
 PS3="Would You Like To Install SSH? (A Program That Allows You To Type In Other Linux Computers Or Type In Your Terminal From Another Computer)
@@ -197,7 +197,7 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    65% Done!
 EOF
 
@@ -238,7 +238,7 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    76% Done!
 EOF
 
@@ -257,7 +257,7 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    80% Done!
 EOF
 
@@ -336,12 +336,12 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    90% Done!
 EOF
 
 
-PS3='Would You Like Localsend, Discord, Neither, or Both? 
+PS3='Would You Like Localsend, Discord, Neither, or Both?
 '
 options=("Localsend" "Discord" "Both" "Neither")
 
@@ -376,7 +376,7 @@ clear
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    100% Done!
 EOF
 sudo systemctl enable NetworkManager power-profiles-daemon.service >/dev/null 2>&1 || true
@@ -416,7 +416,7 @@ elif command -v apt >/dev/null 2>&1; then
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
 0% Done! Currently Updating Silently!
 EOF
 		sudo apt update && sudo apt upgrade -y >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
@@ -429,10 +429,10 @@ EOF
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    12% Done!
 EOF
-		sudo apt install nala python3 wl-clipboard qdl network-manager libfuse2 7zip curl eog acpi flatpak vim bat nano power-profiles-daemon gvfs -y >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
+		sudo apt install kwalletmanager nala python3 wl-clipboard qdl network-manager libfuse2 7zip curl eog acpi flatpak vim bat nano power-profiles-daemon gvfs -y >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
     clear
 	cat << "EOF"
 
@@ -442,7 +442,7 @@ EOF
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    25% Done!
 EOF
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -457,7 +457,7 @@ EOF
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    33% Done!
 EOF
 	sudo systemctl enable NetworkManager power-profiles-daemon.service >/dev/null 2>&1 || true
@@ -487,7 +487,7 @@ do
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    46% Done!
 EOF
 
@@ -516,7 +516,7 @@ do
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    55% Done!
 EOF
 
@@ -547,7 +547,7 @@ do
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    67% Done!
 EOF
 
@@ -588,7 +588,7 @@ done
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    75% Done!
 EOF
 
@@ -628,7 +628,7 @@ do
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    90% Done!
 EOF
 
@@ -666,11 +666,11 @@ elif command -v dnf >/dev/null 2>&1; then
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    	0% Done! Updating Silently!
 EOF
 		sudo dnf update -y >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
-		sudo dnf install python3 yt-dlp fastfetch nano vim wl-clipboard curl flatpak 7zip git acpi power-profiles-daemon usbutils -y --allowerasing >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
+		sudo dnf install kwalletmanager python3 yt-dlp fastfetch nano vim wl-clipboard curl flatpak 7zip git acpi power-profiles-daemon usbutils -y --allowerasing >/dev/null 2>&1 || { echo "You are NOT connected to the internet!"; exit 1; }
     clear
 	cat << "EOF"
 
@@ -680,7 +680,7 @@ EOF
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    12% Done!
 EOF
 		sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -695,7 +695,7 @@ EOF
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    19% Done!
 EOF
 	rm -rf ~/.config/fastfetch
@@ -730,7 +730,7 @@ do
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    24% Done!
 EOF
 
@@ -761,7 +761,7 @@ do
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    30% Done!
 EOF
 
@@ -802,7 +802,7 @@ done
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    57% Done!
 EOF
 
@@ -838,7 +838,7 @@ do
 	 ██╔██╗ ██╔══╝  ██║╚██╗██║
 	██╔╝ ██╗███████╗██║ ╚████║
 	╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                          
+
    		    90% Done!
 EOF
 
@@ -904,7 +904,7 @@ alias apt 'sudo apt'
 alias nala 'sudo nala'
 alias dnf 'sudo dnf'
 EOF
-            fi	
+            fi
 				exit
             	;;
         "Bluetooth & SSH")
