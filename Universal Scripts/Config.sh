@@ -43,4 +43,5 @@ fastfetch --logo vanilla2
 alias pacman 'sudo pacman'
 alias apt 'sudo apt'
 alias dnf 'sudo dnf'
+alias reboot 'sudo reboot now'
 EOF
