@@ -29,6 +29,7 @@ EOF
 
 if ! command -v systemctl >/dev/null 2>&1; then
 	echo "You Don't Use Systemd, So This Script Will Fail!"
+	sleep 3
 	clear
 	exit
 fi
