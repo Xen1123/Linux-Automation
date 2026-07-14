@@ -35,6 +35,12 @@ elif command -v dnf >/dev/null 2>&1; then
     clear
 fi
 
+if command -v flatpak >/dev/null 2>&1; then
+	echo "Flatpak Found! I Will Remove Some Flatpak Cache, It Might Not Remove Much If You Rarely Use Flatpak."
+	sleep 2.5
+	rm -rf ~/.local/share/flatpak/repo/tmp/cache >/dev/null 2>&1 || true
+	clear
+fi
 clear
 
 echo "Your System Should Be Multiple Gigabytes (GB) Cleaner! If Not, Your System Was Already Very Lean With Caches, Good Job!"
