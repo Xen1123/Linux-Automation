@@ -39,7 +39,7 @@ mkdir -p ~/.config/fish
 
   cat <<EOF > ~/.config/fish/config.fish
 set fish_greeting ""
-fastfetch --logo vanilla2
+fastfetch
 alias pacman 'sudo pacman'
 alias apt 'sudo apt'
 alias dnf 'sudo dnf'
