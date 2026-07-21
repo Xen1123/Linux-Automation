@@ -3,10 +3,10 @@
 <h5 align=center>Arch - Debian - Fedora</h5>
 
 ## Contents
-    - Cleaner
-    - Updating
-    - Configs
-    - A Full System Setup
+- Cleaner
+- Updating
+- Configs
+- A Full System Setup
 
 ## Full System Setup Script
 
