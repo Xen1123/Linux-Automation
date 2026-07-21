@@ -22,7 +22,6 @@ rm -rf ~/.config/fastfetch
 	"memory",
 	"packages",
 	"kernel",
-	"packages",
 	"terminal",
 	"cpu",
 	"gpu",
