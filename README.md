@@ -3,10 +3,10 @@
 <h5 align=center>Arch - Debian - Fedora</h5>
 
 ## Contents
-- [Cleaner](./Universal\ Scripts/Cleaner.sh)
-- Updating
-- Configs
-- A Full System Setup
+- [Cleaner](https://github.com/Xen1123/Linux-Automation/blob/main/Universal%20Scripts/Cleaner.sh)
+- [Updating](https://github.com/Xen1123/Linux-Automation/blob/main/Universal%20Scripts/Updater.sh)
+- [Configs](https://github.com/Xen1123/Linux-Automation/blob/main/Universal%20Scripts/Config.sh)
+- [A Full System Setup](https://github.com/Xen1123/Linux-Automation/blob/main/Universal%20Scripts/Full-Suite.sh)
 
 ## Full System Setup Script
 
