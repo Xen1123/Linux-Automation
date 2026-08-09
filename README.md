@@ -3,7 +3,7 @@
 <h5 align=center>Arch - Debian - Fedora</h5>
 
 ## Contents
-- Cleaner
+- [Cleaner]("./Universal Scripts/Cleaner.sh")
 - Updating
 - Configs
 - A Full System Setup
