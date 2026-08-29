@@ -14,7 +14,6 @@ setup_fastfetch() {
 	"memory",
 	"packages",
 	"kernel",
-	"packages",
 	"terminal",
 	"cpu",
 	"gpu",
@@ -73,7 +72,7 @@ clear
    		    10% Done!
 EOF
 
-mv ~/paru ~/paru-backup >/dev/null 2>&1 || true
+mv ~/paru ~/paruBackup >/dev/null 2>&1 || true
 		git clone https://aur.archlinux.org/paru.git >/dev/null 2>&1 || { echo "Clone Failed! Please Install Git And Dependencies!"; exit 1; }
 		cd ~/paru || { echo "Folder Paru Not Found"; exit 1; }
         clear
@@ -211,11 +210,29 @@ do
 		"Yes")
 			sudo pacman -S fish --noconfirm >/dev/null 2>&1 || { echo "Failed To Install Fish Shell, Please Check Your Internet Connection!"; exit 1; }
 			mkdir -p ~/.config/fish
-			cat <<EOF > ~/.config/fish/config.fish
-set fish_greeting ""
-fastfetch --logo vanilla2
+  			cat <<EOF > ~/.config/fish/config.fish
+set fish_greeting
+clear
+alias apt 'sudo apt'
+alias nala 'sudo nala'
+alias dnf 'sudo dnf'
 alias pacman 'sudo pacman'
+alias apk 'sudo apk'
+alias xbps-install 'sudo xbps-install'
+alias xbps-remove 'sudo xbps-remove'
+alias reboot 'sudo reboot now'
+fastfetch
+set -gx LS_COLORS 'di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
 EOF
+
+			if command -v starship >/dev/null 2>&1; then
+			cat <<EOF >> ~/.config/fish/config.fish
+starship init fish | source
+enable_transience
+EOF
+else
+	clear
+fi
 			chsh -s /usr/bin/fish
 			break
 			;;
@@ -775,11 +792,29 @@ do
 		"Yes")
 			sudo dnf install fish -y >/dev/null 2>&1 || { echo "Failed To Install Fish Shell, Please Check Your Internet Connection!"; exit 1; }
 			mkdir -p ~/.config/fish
-			cat <<EOF > ~/.config/fish/config.fish
-set fish_greeting ""
-fastfetch --logo vanilla2
+  cat <<EOF > ~/.config/fish/config.fish
+set fish_greeting
+clear
+alias apt 'sudo apt'
+alias nala 'sudo nala'
 alias dnf 'sudo dnf'
+alias pacman 'sudo pacman'
+alias apk 'sudo apk'
+alias xbps-install 'sudo xbps-install'
+alias xbps-remove 'sudo xbps-remove'
+alias reboot 'sudo reboot now'
+fastfetch
+set -gx LS_COLORS 'di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
 EOF
+
+if command -v starship >/dev/null 2>&1; then
+	cat <<EOF >> ~/.config/fish/config.fish
+starship init fish | source
+enable_transience
+EOF
+else
+	clear
+fi
 			chsh -s /usr/bin/fish
 			break
 			;;
@@ -898,13 +933,29 @@ fi
         if command -v fish /dev/null 2>&1; then
 			rm -rf ~/.config/fish || true
         	mkdir -p ~/.config/fish
-        	cat <<EOF > ~/.config/fish/config.fish
-set fish_greeting ""
-alias pacman 'sudo pacman'
+  cat <<EOF > ~/.config/fish/config.fish
+set fish_greeting
+clear
 alias apt 'sudo apt'
 alias nala 'sudo nala'
 alias dnf 'sudo dnf'
+alias pacman 'sudo pacman'
+alias apk 'sudo apk'
+alias xbps-install 'sudo xbps-install'
+alias xbps-remove 'sudo xbps-remove'
+alias reboot 'sudo reboot now'
+fastfetch
+set -gx LS_COLORS 'di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
 EOF
+
+if command -v starship >/dev/null 2>&1; then
+	cat <<EOF >> ~/.config/fish/config.fish
+starship init fish | source
+enable_transience
+EOF
+else
+	clear
+fi
             fi
 				exit
             	;;
