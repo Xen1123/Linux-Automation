@@ -59,3 +59,35 @@ EOF
 else
 	clear
 fi
+
+if command -v vim; then
+    cat <<EOF > ~/.vimrc
+set number
+syntax on
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set mouse=a
+
+" Keybinds
+map <F2> :wq<CR>
+map <F5> :q!<CR> 
+EOF
+fi
+if command -v nvim; then
+mkdir ~/.config/nvim
+    cat <<EOF > ~/.config/nvim/init.vim
+set number
+syntax on
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set mouse=a
+
+" Keybinds
+map <F2> :wq<CR>
+map <F5> :q!<CR> 
+EOF
+
