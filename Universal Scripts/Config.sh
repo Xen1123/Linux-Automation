@@ -49,7 +49,21 @@ alias xbps-remove 'sudo xbps-remove'
 alias reboot 'sudo reboot now'
 fastfetch
 set -gx LS_COLORS 'di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
+alias ls 'eza --icons=auto'
 EOF
+
+if command -v pacman >/dev/null 2>&1; then
+	sudo pacman -S eza --noconfirm
+elif command -v apt >/dev/null 2>&1; then
+	sudo apt install eza -y
+elif command -v dnf >/dev/null 2>&1; then
+	sudo dnf install eza -y
+elif command -v apk >/dev/null 2>&1; then
+	sudo apk add eza
+elif command -v xbps-install >/dev/null 2>&1; then
+	sudo xbps-install -Sy eza
+fi
+
 
 if command -v starship >/dev/null 2>&1; then
 	cat <<EOF >> ~/.config/fish/config.fish
