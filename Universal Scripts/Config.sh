@@ -60,7 +60,7 @@ else
 	clear
 fi
 
-if command -v vim; then
+if command -v vim >/dev/null 2>&1; then
     cat <<EOF > ~/.vimrc
 set number
 syntax on
@@ -75,7 +75,8 @@ map <F2> :wq<CR>
 map <F5> :q!<CR> 
 EOF
 fi
-if command -v nvim; then
+if command -v nvim >/dev/null 2>&1; then
+rm -rf ~/.config/nvim
 mkdir ~/.config/nvim
     cat <<EOF > ~/.config/nvim/init.vim
 set number
@@ -90,4 +91,4 @@ set mouse=a
 map <F2> :wq<CR>
 map <F5> :q!<CR> 
 EOF
-
+fi
