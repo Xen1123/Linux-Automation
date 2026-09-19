@@ -56,7 +56,7 @@ alias reboot='sudo reboot now'
 alias vim='nvim'
 
 
-fastfetch --logo arch3
+fastfetch
 
 export LS_COLORS='di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
 

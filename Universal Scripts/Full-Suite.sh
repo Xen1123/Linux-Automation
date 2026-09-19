@@ -1,7 +1,13 @@
 #!/bin/bash
 
-setup_fastfetch() {
-	cat <<EOF > ~/.config/fastfetch/config.jsonc
+setup_configs() {
+rm -rf ~/.config/fastfetch
+rm -rf ~/.config/starship
+rm -rf ~/.bashrc
+rm -rf ~/.config/nvim
+mkdir -p ~/.config/fastfetch
+mkdir -p ~/.config/starship
+	cat <<EOFF > ~/.config/fastfetch/config.jsonc
 {
   "": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "modules": [
@@ -23,7 +29,199 @@ setup_fastfetch() {
 	"colors"
   ]
 }
-EOF
+EOFF
+	cat <<EOFS > ~/.config/starship/starship.toml
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$python\
+$lua\
+$nodejs\
+$golang\
+$haskell\
+$rust\
+$ruby\
+$package\
+$aws\
+$docker_context\
+$jobs\
+$cmd_duration\
+$line_break\
+$character"""
+
+add_newline = true
+palette = 'nord'
+
+[directory]
+style = 'bold fg:dark_blue'
+format = '[$path ]($style)'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = false
+
+#[directory.substitutions]
+#'Documents' = '󰈙'
+#'Downloads' = ' '
+#'Music' = ' '
+#'Pictures' = ' '
+
+[git_branch]
+style = 'fg:green'
+symbol = ' '
+format = '[on](white) [$symbol$branch ]($style)'
+
+[git_status]
+style = 'fg:green'
+format = '([$all_status$ahead_behind]($style) )'
+
+[fill]
+symbol = ' '
+
+[python]
+style = 'teal'
+symbol = ' '
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+pyenv_version_name = true
+pyenv_prefix = ''
+
+[lua]
+symbol = ' '
+
+[nodejs]
+style = 'blue'
+symbol = ' '
+
+[golang]
+style = 'blue'
+symbol = ' '
+
+[haskell]
+style = 'blue'
+symbol = ' '
+
+[rust]
+style = 'orange'
+symbol = ' '
+
+[ruby]
+style = 'blue'
+symbol = ' '
+
+[package]
+symbol = '󰏗 '
+
+[aws]
+symbol = ' '
+style = 'yellow'
+format = '[$symbol($profile )(\[$duration\] )]($style)'
+
+[docker_context]
+symbol = ' '
+style = 'fg:#06969A'
+format = '[$symbol]($style) $path'
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+detect_extensions = ['Dockerfile']
+
+[jobs]
+symbol = ' '
+style = 'red'
+number_threshold = 1
+format = '[$symbol]($style)'
+
+[cmd_duration]
+min_time = 500
+style = 'fg:gray'
+format = '[$duration]($style)'
+
+[palettes.nord]
+dark_blue = '#5E81AC'
+blue = '#81A1C1'
+teal = '#88C0D0'
+red = '#BF616A'
+orange = '#D08770'
+green = '#A3BE8C'
+yellow = '#EBCB8B'
+purple = '#B48EAD'
+gray = '#434C5E'
+black = '#2E3440'
+white='#D8DEE9'
+
+[palettes.onedark]
+dark_blue='#61afef'
+blue='#56b6c2'
+red='#e06c75'
+green='#98c379'
+purple='#c678dd'
+cyan='#56b6c2'
+orange='#be5046'
+yellow='#e5c07b'
+gray='#828997'
+white ='#abb2bf'
+black='#2c323c'
+EOFS
+
+	cat <<EOFB > ~/.bashrc
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias grep='grep --color=auto'
+PS1='[\u@\h \W]\$ '
+clear
+
+alias apt='sudo apt'
+alias nala='sudo nala'
+alias dnf='sudo dnf'
+alias pacman='sudo pacman'
+alias apk='sudo apk'
+alias xbps-install='sudo xbps-install'
+alias xbps-remove='sudo xbps-remove'
+alias reboot='sudo reboot now'
+alias vim='nvim'
+
+
+fastfetch
+
+export LS_COLORS='di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
+
+alias ls='eza --icons=auto'
+
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init bash)"
+EOFB
+
+	cat <<EOFVIM > ~/.vimrc
+set number
+syntax on
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set mouse=a
+
+" Keybinds
+map <F2> :wq<CR>
+map <F5> :q!<CR> 
+EOFVIM
+
+	cat <<EOFNVIM > ~/.config/nvim/init.vim
+set number
+syntax on
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set mouse=a
+
+" Keybinds
+map <F2> :wq<CR>
+map <F5> :q!<CR> 
+EOFNVIM
 }
 
 if ! command -v systemctl >/dev/null 2>&1; then
@@ -201,51 +399,7 @@ clear
    		    65% Done!
 EOF
 
-PS3="Would You Like To Use Fish Shell Instead Of Bash?
-"
-options=("Yes" "No")
-select opt in "${options[@]}"
-do
-	case $opt in
-		"Yes")
-			sudo pacman -S fish --noconfirm >/dev/null 2>&1 || { echo "Failed To Install Fish Shell, Please Check Your Internet Connection!"; exit 1; }
-			mkdir -p ~/.config/fish
-  			cat <<EOF > ~/.config/fish/config.fish
-set fish_greeting
-clear
-alias apt 'sudo apt'
-alias nala 'sudo nala'
-alias dnf 'sudo dnf'
-alias pacman 'sudo pacman'
-alias apk 'sudo apk'
-alias xbps-install 'sudo xbps-install'
-alias xbps-remove 'sudo xbps-remove'
-alias reboot 'sudo reboot now'
-fastfetch
-set -gx LS_COLORS 'di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
-EOF
-
-			if command -v starship >/dev/null 2>&1; then
-			cat <<EOF >> ~/.config/fish/config.fish
-starship init fish | source
-enable_transience
-EOF
-else
-	clear
-fi
-			chsh -s /usr/bin/fish
-			break
-			;;
-		"No")
-			echo "alias pacman='sudo pacman'" >> ~/.bashrc
-			echo "fastfetch" >> ~/.bashrc
-			break
-			;;
-		*)
-			echo "Invalid Option: $REPLY"
-			;;
-	esac
-done
+setup_configs
 
 clear
 	cat << "EOF"
@@ -265,7 +419,6 @@ EOF
 	paru -S qdl --noconfirm >/dev/null 2>&1 || true
 	paru -S kde-material-you-colors --noconfirm >/dev/null 2>&1 || true
 cd /home/"$USER" || exit
-fastfetch --gen-config-force >/dev/null 2>&1 || true
 clear
 	cat << "EOF"
 
@@ -278,10 +431,6 @@ clear
 
    		    80% Done!
 EOF
-
-	rm -rf ~/.config/fastfetch
-	mkdir -p ~/.config/fastfetch
-	setup_fastfetch
 
 sudo systemctl enable NetworkManager sddm.service power-profiles-daemon.service >/dev/null 2>&1 || true
 sudo systemctl start power-profiles-daemon.service >/dev/null 2>&1 || true
@@ -569,33 +718,7 @@ do
    		    67% Done!
 EOF
 
-PS3="Would You Like To Use Fish Shell Instead Of Bash?
-"
-options=("Yes" "No")
-select opt in "${options[@]}"
-do
-	case $opt in
-		"Yes")
-			sudo nala install fish -y >/dev/null 2>&1 || { echo "Failed To Install Fish Shell, Please Check Your Internet Connection!"; exit 1; }
-			mkdir -p ~/.config/fish >/dev/null 2>&1 || true
-			cat <<EOF > ~/.config/fish/config.fish
-set fish_greeting ""
-alias apt 'sudo nala'
-alias nala 'sudo nala'
-EOF
-			chsh -s /usr/bin/fish
-			break
-			;;
-		"No")
-			echo "alias apt='sudo nala'" >> ~/.bashrc
-			echo "alias nala='sudo nala'" >> ~/.bashrc
-			break
-			;;
-		*)
-			echo "Invalid Option: $REPLY"
-			;;
-	esac
-done
+setup_configs
 
     clear
 	cat << "EOF"
@@ -716,12 +839,6 @@ EOF
 
    		    19% Done!
 EOF
-	rm -rf ~/.config/fastfetch
-	mkdir -p ~/.config/fastfetch
-	setup_fastfetch
-
-clear
-fastfetch
 
 PS3="Would You Like ADB And Fastboot, Along With Heimdall? (If You Don't Know What These Are, You Don't Need Them)
 "
@@ -783,51 +900,7 @@ do
    		    30% Done!
 EOF
 
-PS3="Would You Like To Use Fish Shell Instead Of Bash?
-"
-options=("Yes" "No")
-select opt in "${options[@]}"
-do
-	case $opt in
-		"Yes")
-			sudo dnf install fish -y >/dev/null 2>&1 || { echo "Failed To Install Fish Shell, Please Check Your Internet Connection!"; exit 1; }
-			mkdir -p ~/.config/fish
-  cat <<EOF > ~/.config/fish/config.fish
-set fish_greeting
-clear
-alias apt 'sudo apt'
-alias nala 'sudo nala'
-alias dnf 'sudo dnf'
-alias pacman 'sudo pacman'
-alias apk 'sudo apk'
-alias xbps-install 'sudo xbps-install'
-alias xbps-remove 'sudo xbps-remove'
-alias reboot 'sudo reboot now'
-fastfetch
-set -gx LS_COLORS 'di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
-EOF
-
-if command -v starship >/dev/null 2>&1; then
-	cat <<EOF >> ~/.config/fish/config.fish
-starship init fish | source
-enable_transience
-EOF
-else
-	clear
-fi
-			chsh -s /usr/bin/fish
-			break
-			;;
-		"No")
-			echo "alias dnf='sudo dnf'" >> ~/.bashrc
-			echo "fastfetch" >> ~/.bashrc
-			break
-			;;
-		*)
-			echo "Invalid Option: $REPLY"
-			;;
-	esac
-done
+setup_configs
 
     clear
 	cat << "EOF"
@@ -917,45 +990,8 @@ fi
             ;;
         "Change Configs")
         clear
-        if command -v fastfetch LINE="fastfetch" /dev/null 2>&1; then
-            FILE="$HOME/.bashrc"
+        setup_configs
 
-            if ! grep -Fq "$LINE" "$FILE"; then
-                echo "fastfetch" >> ~/.bashrc
-            else
-                clear
-                echo "Your Bash Config Already Has Fastfetch."
-            fi
-        fi
-        if [ -d ~/.config/fish ] >/dev/null 2>&1; then
-            cp -r ~/.config/fish ~/Downloads
-        fi
-        if command -v fish /dev/null 2>&1; then
-			rm -rf ~/.config/fish || true
-        	mkdir -p ~/.config/fish
-  cat <<EOF > ~/.config/fish/config.fish
-set fish_greeting
-clear
-alias apt 'sudo apt'
-alias nala 'sudo nala'
-alias dnf 'sudo dnf'
-alias pacman 'sudo pacman'
-alias apk 'sudo apk'
-alias xbps-install 'sudo xbps-install'
-alias xbps-remove 'sudo xbps-remove'
-alias reboot 'sudo reboot now'
-fastfetch
-set -gx LS_COLORS 'di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
-EOF
-
-if command -v starship >/dev/null 2>&1; then
-	cat <<EOF >> ~/.config/fish/config.fish
-starship init fish | source
-enable_transience
-EOF
-else
-	clear
-fi
             fi
 				exit
             	;;

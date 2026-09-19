@@ -42,4 +42,3 @@
             - `apt install network-manager -y`
             - `systemctl enable NetworkManager && systemctl start NetworkManager`
             - Open With `nmtui` And Connect To Your Internet
-    
