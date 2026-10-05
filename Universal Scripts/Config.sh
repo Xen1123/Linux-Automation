@@ -79,10 +79,6 @@ elif command -v xbps-install >/dev/null 2>&1; then
 	sudo xbps-install -Sy eza neovim starship vim
 fi
 
-else
-	clear
-fi
-
 if command -v vim >/dev/null 2>&1; then
     cat <<EOF > ~/.vimrc
 set number
