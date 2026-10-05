@@ -363,3 +363,5 @@ alias pacman='sudo pacman'
 alias vim='nvim'
 alias yt-dlp='yt-dlp -x --audio-format mp3 --audio-quality 2 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"'
 FISH
+else:
+exit
