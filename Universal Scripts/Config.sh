@@ -153,7 +153,7 @@ truncate_to_repo = false
 [git_branch]
 style = 'fg:green'
 symbol = ' '
-format = '[on](white) [ ]()'
+format = '[$symbol$branch]($style) '
 
 [git_status]
 style = 'fg:green'
