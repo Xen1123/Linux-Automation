@@ -266,7 +266,7 @@ if test -f ~/.fish_profile
   source ~/.fish_profile
 end
 
-# Append common directories for executable files to $PATH
+# Append common directories for executable files to /home/eric/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
 fish_add_path ~/.local/bin ~/.cargo/bin ~/Applications/depot_tools
 
 ## Functions
@@ -274,7 +274,7 @@ fish_add_path ~/.local/bin ~/.cargo/bin ~/Applications/depot_tools
 function __history_previous_command
   switch (commandline -t)
   case "!"
-    commandline -t $history[1]; commandline -f repaint
+    commandline -t [1]; commandline -f repaint
   case "*"
     commandline -i !
   end
@@ -290,7 +290,7 @@ function __history_previous_command_arguments
   end
 end
 
-if [ "$fish_key_bindings" = fish_vi_key_bindings ];
+if [ "" = fish_vi_key_bindings ];
   bind -Minsert ! __history_previous_command
   bind -Minsert '$' __history_previous_command_arguments
 else
@@ -300,22 +300,22 @@ end
 
 # Fish command history
 function history
-    builtin history --show-time='%F %T ' $argv
+    builtin history --show-time='%F %T ' 
 end
 
 function backup --argument filename
-    cp $filename $filename.bak
+    cp  .bak
 end
 
 # Copy DIR1 DIR2
 function copy
-    set count (count $argv | tr -d \n)
-    if test "$count" = 2; and test -d "$argv[1]"
-        set from (echo $argv[1] | trim-right /)
-        set to (echo $argv[2])
-        command cp -r $from $to
+    set count (count  | tr -d \n)
+    if test "" = 2; and test -d "[1]"
+        set from (echo [1] | trim-right /)
+        set to (echo [2])
+        command cp -r  
     else
-        command cp $argv
+        command cp 
     end
 end
 
@@ -355,6 +355,8 @@ alias dnf='sudo dnf'
 alias nala='sudo nala'
 alias pacman='sudo pacman'
 alias vim='nvim'
+set -Ux STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
 alias yt-dlp='yt-dlp -x --audio-format mp3 --audio-quality 2 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"'
+starship init fish | source
 FISH
 fi
