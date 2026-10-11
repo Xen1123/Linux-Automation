@@ -160,6 +160,9 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias dnf='sudo dnf'
 alias nala='sudo nala'
 alias pacman='sudo pacman'
+alias xbps-install="sudo xbps-install"
+alias xbps-remove="sudo xbps-remove"
+alias apk='sudo apk'
 alias vim='nvim'
 set -Ux STARSHIP_CONFIG "/home/$USER/.config/starship/starship.toml"
 alias yt-dlp='yt-dlp -x --audio-format mp3 --audio-quality 2 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"'
@@ -355,6 +358,9 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias dnf='sudo dnf'
 alias nala='sudo nala'
 alias pacman='sudo pacman'
+alias xbps-install='sudo xbps-install'
+alias xbps-remove='sudo xbps-remove'
+alias apk='sudo apk'
 alias vim='nvim'
 export STARSHIP_CONFIG="/home/$USER/.config/starship/starship.toml"
 eval "$(starship init bash)"
