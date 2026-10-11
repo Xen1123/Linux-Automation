@@ -11,17 +11,17 @@ cp -r ~/.config/nvim/ ~/Config_Backup >/dev/null 2>&1 || true
 cp -r ~/.config/starship/ ~/Config_Backup >/dev/null 2>&1 || true
 
 if command -v pacman >/dev/null 2>&1; then
-    sudo pacman -Sy vim fish fastfetch eza neovim starship --noconfirm
+    sudo pacman -Sy vim fish fastfetch eza neovim starship --noconfirm || true
 elif command -v nala >/dev/null 2>&1; then
-    sudo nala install -y vim fish fastfetch eza neovim starship
+    sudo nala install -y vim fish fastfetch eza neovim starship || true
 elif command -v apt >/dev/null 2>&1; then
-    sudo apt install -y vim fish fastfetch eza neovim nala starship
+    sudo apt install -y vim fish fastfetch eza neovim nala starship || true
 elif command -v dnf >/dev/null 2>&1; then
-    sudo dnf install vim fish neovim fastfetch eza starship
+    sudo dnf install vim fish neovim fastfetch eza starship || true
 elif command -v xbps-install >/dev/null 2>&1; then
-    sudo xbps-install -Sy vim fish-shell neovim fastfetch eza starship
+    sudo xbps-install -Sy vim fish-shell neovim fastfetch eza starship || true
 elif command -v apk >/dev/null 2>&1; then
-    sudo apk add vim fish-shell neovim fastfetch eza starship
+    sudo apk add vim fish-shell neovim fastfetch eza starship || true
 fi
 
 rm -rf ~/.config/fastfetch
