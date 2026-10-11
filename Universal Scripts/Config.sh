@@ -6,98 +6,166 @@ read -r -n 1 -s
 mkdir -p ~/Config_Backup >/dev/null 2>&1 || true
 cp -r ~/.config/fastfetch/ ~/Config_Backup >/dev/null 2>&1 || true
 cp -r ~/.bashrc ~/Config_Backup >/dev/null 2>&1 || true
+cp -r ~/.vimrc ~/Config_Backup >/dev/null 2>&1 || true
+cp -r ~/.config/nvim/ ~/Config_Backup >/dev/null 2>&1 || true
+cp -r ~/.config/starship/ ~/Config_Backup >/dev/null 2>&1 || true
 
-rm -rf ~/.config/fastfetch
-	mkdir -p ~/.config/fastfetch
-	cat <<EOF > ~/.config/fastfetch/config.jsonc
+if command -v pacman >/dev/null 2>&1;
+    sudo pacman -Sy vim fish fastfetch eza neovim starship --noconfirm
+elif command -v nala >/dev/null 2>&1;
+    sudo nala install -y vim fish fastfetch eza neovim starship
+elif command -v apt >/dev/null 2>&1;
+    sudo apt install -y vim fish fastfetch eza neovim nala starship
+elif command -v dnf >/dev/null 2>&1;
+    sudo dnf install vim fish neovim fastfetch eza starship
+elif command -v xbps-install >/dev/null 2>&1;
+    sudo xbps-install -Sy vim fish-shell neovim fastfetch eza starship
+elif command -v apk >/dev/null 2>&1;
+    sudo apk add vim fish-shell neovim fastfetch eza starship
+fi
+
+mkdir ~/.config/fastfetch/config.jsonc
+cat <<FASTFETCH ~/.config/fastfetch/config.jsonc
 {
   "": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "modules": [
     "title",
-	"separator",
-	"os",
-	"uptime",
-	"host",
-	"disk",
-	"memory",
-	"packages",
-	"kernel",
-	"terminal",
-	"cpu",
-	"gpu",
-	"localip",
-	"battery",
-	"break",
-	"colors"
+        "separator",
+        "os",
+        "uptime",
+        "host",
+        "disk",
+        "memory",
+        "packages",
+        "kernel",
+        "terminal",
+        "cpu",
+        "gpu",
+        "localip",
+        "battery",
+        "break",
+        "colors"
   ]
 }
-EOF
+FASTFETCH
 
-  cat <<EOF > ~/..bashrc
-#
-# ~/.bashrc
-#
+mkdir ~/.config/fish/
+cat <<'FISH' > ~/.config/fish/config.fish
+function fish_greeting
+    fastfetch
+end
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+# Format man pages
+set -x MANROFFOPT "-c"
+set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
+# Set settings for https://github.com/franciscolourenco/done
+set -U __done_min_cmd_duration 10000
+set -U __done_notification_urgency_level low
+
+## Environment setup
+# Apply .profile: use this to put fish compatible .profile stuff in
+if test -f ~/.fish_profile
+  source ~/.fish_profile
+end
+
+# Append common directories for executable files to /home/eric/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
+fish_add_path ~/.local/bin ~/.cargo/bin ~/Applications/depot_tools
+
+## Functions
+# Functions needed for !! and !$ https://github.com/oh-my-fish/plugin-bang-bang
+function __history_previous_command
+  switch (commandline -t)
+  case "!"
+    commandline -t [1]; commandline -f repaint
+  case "*"
+    commandline -i !
+  end
+end
+
+function __history_previous_command_arguments
+  switch (commandline -t)
+  case "!"
+    commandline -t ""
+    commandline -f history-token-search-backward
+  case "*"
+    commandline -i '$'
+  end
+end
+
+if [ "" = fish_vi_key_bindings ];
+  bind -Minsert ! __history_previous_command
+  bind -Minsert '$' __history_previous_command_arguments
+else
+  bind ! __history_previous_command
+  bind '$' __history_previous_command_arguments
+end
+
+# Fish command history
+function history
+    builtin history --show-time='%F %T ' 
+end
+
+function backup --argument filename
+    cp  .bak
+end
+
+# Copy DIR1 DIR2
+function copy
+    set count (count  | tr -d \n)
+    if test "" = 2; and test -d "[1]"
+        set from (echo [1] | trim-right /)
+        set to (echo [2])
+        command cp -r  
+    else
+        command cp 
+    end
+end
+
+## Useful aliases
+# Replace ls with eza
+alias ls='eza -al --color=always --group-directories-first --icons=always' # preferred listing
+alias la='eza -a --color=always --group-directories-first --icons=always'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first --icons=always'  # long format
+alias lt='eza -aT --color=always --group-directories-first --icons=always' # tree listing
+alias l.="eza -a | grep -e '^\.'"                                     # show only dotfiles
+
+# Common use
+alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias tarnow='tar -acf '
+alias untar='tar -zxvf '
+alias wget='wget -c '
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
-PS1='[\u@\h \W]\$ '
-clear
 
 alias apt='sudo apt'
-alias nala='sudo nala'
+
+alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
+
+alias jctl="journalctl -p 3 -xb"
+
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias dnf='sudo dnf'
+alias nala='sudo nala'
 alias pacman='sudo pacman'
-alias apk='sudo apk'
-alias xbps-install='sudo xbps-install'
-alias xbps-remove='sudo xbps-remove'
-alias reboot='sudo reboot now'
 alias vim='nvim'
+set -Ux STARSHIP_CONFIG "/home/$USER/.config/starship/starship.toml"
+alias yt-dlp='yt-dlp -x --audio-format mp3 --audio-quality 2 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"'
+starship init fish | source
+FISH
 
-
-fastfetch
-
-export LS_COLORS='di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
-
-alias ls='eza --icons=auto'
-
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-eval "$(starship init bash)"
-
-EOF
-
-if command -v pacman >/dev/null 2>&1; then
-	sudo pacman -S eza nvim starship vim --noconfirm
-elif command -v apt >/dev/null 2>&1; then
-	sudo apt install eza nvim starship vim -y
-elif command -v dnf >/dev/null 2>&1; then
-	sudo dnf install eza nvim starship vim -y
-elif command -v apk >/dev/null 2>&1; then
-	sudo apk add eza neovim starship vim
-elif command -v xbps-install >/dev/null 2>&1; then
-	sudo xbps-install -Sy eza neovim starship vim
-fi
-
-if command -v vim >/dev/null 2>&1; then
-    cat <<EOF > ~/.vimrc
-set number
-syntax on
-
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set mouse=a
-
-" Keybinds
-map <F2> :wq<CR>
-map <F5> :q!<CR> 
-EOF
-fi
-if command -v nvim >/dev/null 2>&1; then
-rm -rf ~/.config/nvim
 mkdir ~/.config/nvim
-    cat <<EOF > ~/.config/nvim/init.vim
+sudo mkdir -p /root/.config/nvim
+sudo tee ~/.vimrc ~/.config/nvim/init.vim /root/.vimrc /root/.config/nvim/init.vim >/dev/null 2>&1 <<VIM
 set number
 syntax on
 
@@ -109,12 +177,10 @@ set mouse=a
 " Keybinds
 map <F2> :wq<CR>
 map <F5> :q!<CR> 
-EOF
-fi
+VIM
 
-rm -rf ~/.config/starship/starship.toml
-mkdir -p ~/.config/starship
-    cat <<EOF > ~/.config/starship/starship.toml
+mkdir ~/.config/starship
+cat <<'STAR' > ~/.config/starship/starship.toml
 format = """
 $username$hostname$directory$git_branch$git_status$fill$python$lua$nodejs$golang$haskell$rust$package$cmd_duration
 $character"""
@@ -243,82 +309,10 @@ yellow='#e5c07b'
 gray='#828997'
 white ='#abb2bf'
 black='#2c323c'
-EOF
-rm -rf ~/.config/fish/config.fish
-mkdir -p ~/.config/fish
-if command -v fish >/dev/null 2>&1; then
-	cat <<FISH > ~/.config/fish/config.fish
-function fish_greeting
-    fastfetch
-end
+STAR
 
-# Format man pages
-set -x MANROFFOPT "-c"
-set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
-
-# Set settings for https://github.com/franciscolourenco/done
-set -U __done_min_cmd_duration 10000
-set -U __done_notification_urgency_level low
-
-## Environment setup
-# Apply .profile: use this to put fish compatible .profile stuff in
-if test -f ~/.fish_profile
-  source ~/.fish_profile
-end
-
-# Append common directories for executable files to /home/eric/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
-fish_add_path ~/.local/bin ~/.cargo/bin ~/Applications/depot_tools
-
-## Functions
-# Functions needed for !! and !$ https://github.com/oh-my-fish/plugin-bang-bang
-function __history_previous_command
-  switch (commandline -t)
-  case "!"
-    commandline -t [1]; commandline -f repaint
-  case "*"
-    commandline -i !
-  end
-end
-
-function __history_previous_command_arguments
-  switch (commandline -t)
-  case "!"
-    commandline -t ""
-    commandline -f history-token-search-backward
-  case "*"
-    commandline -i '$'
-  end
-end
-
-if [ "" = fish_vi_key_bindings ];
-  bind -Minsert ! __history_previous_command
-  bind -Minsert '$' __history_previous_command_arguments
-else
-  bind ! __history_previous_command
-  bind '$' __history_previous_command_arguments
-end
-
-# Fish command history
-function history
-    builtin history --show-time='%F %T ' 
-end
-
-function backup --argument filename
-    cp  .bak
-end
-
-# Copy DIR1 DIR2
-function copy
-    set count (count  | tr -d \n)
-    if test "" = 2; and test -d "[1]"
-        set from (echo [1] | trim-right /)
-        set to (echo [2])
-        command cp -r  
-    else
-        command cp 
-    end
-end
-
+cat <<'BASH' > ~/.bashrc
+fastfetch
 ## Useful aliases
 # Replace ls with eza
 alias ls='eza -al --color=always --group-directories-first --icons=always' # preferred listing
@@ -355,8 +349,6 @@ alias dnf='sudo dnf'
 alias nala='sudo nala'
 alias pacman='sudo pacman'
 alias vim='nvim'
-set -Ux STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
-alias yt-dlp='yt-dlp -x --audio-format mp3 --audio-quality 2 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"'
-starship init fish | source
-FISH
-fi
+export STARSHIP_CONFIG="/home/$USER/.config/starship/starship.toml"
+eval "$(starship init bash)"
+BASH
