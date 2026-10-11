@@ -24,8 +24,10 @@ elif command -v apk >/dev/null 2>&1; then
     sudo apk add vim fish-shell neovim fastfetch eza starship
 fi
 
-mkdir ~/.config/fastfetch/config.jsonc
-cat <<FASTFETCH ~/.config/fastfetch/config.jsonc
+rm -rf ~/.config/fastfetch
+mkdir ~/.config/fastfetch/
+touch ~/.config/fastfetch/config.jsonc
+cat <<FASTFETCH > ~/.config/fastfetch/config.jsonc
 {
   "": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "modules": [
@@ -49,6 +51,7 @@ cat <<FASTFETCH ~/.config/fastfetch/config.jsonc
 }
 FASTFETCH
 
+rm -rf ~/.config/fish
 mkdir ~/.config/fish/
 cat <<'FISH' > ~/.config/fish/config.fish
 function fish_greeting
@@ -162,7 +165,10 @@ set -Ux STARSHIP_CONFIG "/home/$USER/.config/starship/starship.toml"
 alias yt-dlp='yt-dlp -x --audio-format mp3 --audio-quality 2 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"'
 starship init fish | source
 FISH
-
+rm -rf ~/.config/nvim
+rm ~/.vimrc
+sudo rm -rf /root/.config/nvim
+sudo rm -rf /root/.vimrc
 mkdir ~/.config/nvim
 sudo mkdir -p /root/.config/nvim
 sudo tee ~/.vimrc ~/.config/nvim/init.vim /root/.vimrc /root/.config/nvim/init.vim >/dev/null 2>&1 <<VIM
@@ -179,6 +185,7 @@ map <F2> :wq<CR>
 map <F5> :q!<CR> 
 VIM
 
+rm -rf ~/.config/starship
 mkdir ~/.config/starship
 cat <<'STAR' > ~/.config/starship/starship.toml
 format = """
