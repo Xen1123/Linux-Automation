@@ -5,8 +5,126 @@ rm -rf ~/.config/fastfetch
 rm -rf ~/.config/starship
 rm -rf ~/.bashrc
 rm -rf ~/.config/nvim
+rm -rf ~/.config/fish
+mkdir -p ~/.config/fish
 mkdir -p ~/.config/fastfetch
 mkdir -p ~/.config/starship
+
+cat <<'EOFFISH' > ~/.config/fish/config.fish
+function fish_greeting
+    fastfetch
+end
+
+# Format man pages
+set -x MANROFFOPT "-c"
+set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+
+# Set settings for https://github.com/franciscolourenco/done
+set -U __done_min_cmd_duration 10000
+set -U __done_notification_urgency_level low
+
+## Environment setup
+# Apply .profile: use this to put fish compatible .profile stuff in
+if test -f ~/.fish_profile
+  source ~/.fish_profile
+end
+
+# Append common directories for executable files to /home/eric/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
+fish_add_path ~/.local/bin ~/.cargo/bin ~/Applications/depot_tools
+
+## Functions
+# Functions needed for !! and !$ https://github.com/oh-my-fish/plugin-bang-bang
+function __history_previous_command
+  switch (commandline -t)
+  case "!"
+    commandline -t [1]; commandline -f repaint
+  case "*"
+    commandline -i !
+  end
+end
+
+function __history_previous_command_arguments
+  switch (commandline -t)
+  case "!"
+    commandline -t ""
+    commandline -f history-token-search-backward
+  case "*"
+    commandline -i '$'
+  end
+end
+
+if [ "" = fish_vi_key_bindings ];
+  bind -Minsert ! __history_previous_command
+  bind -Minsert '$' __history_previous_command_arguments
+else
+  bind ! __history_previous_command
+  bind '$' __history_previous_command_arguments
+end
+
+# Fish command history
+function history
+    builtin history --show-time='%F %T ' 
+end
+
+function backup --argument filename
+    cp  .bak
+end
+
+# Copy DIR1 DIR2
+function copy
+    set count (count  | tr -d \n)
+    if test "" = 2; and test -d "[1]"
+        set from (echo [1] | trim-right /)
+        set to (echo [2])
+        command cp -r  
+    else
+        command cp 
+    end
+end
+
+## Useful aliases
+# Replace ls with eza
+alias ls='eza -al --color=always --group-directories-first --icons=always' # preferred listing
+alias la='eza -a --color=always --group-directories-first --icons=always'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first --icons=always'  # long format
+alias lt='eza -aT --color=always --group-directories-first --icons=always' # tree listing
+alias l.="eza -a | grep -e '^\.'"                                     # show only dotfiles
+
+# Common use
+alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias tarnow='tar -acf '
+alias untar='tar -zxvf '
+alias wget='wget -c '
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+
+alias apt='sudo apt'
+
+alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
+
+alias jctl="journalctl -p 3 -xb"
+
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias dnf='sudo dnf'
+alias nala='sudo nala'
+alias pacman='sudo pacman'
+alias xbps-install="sudo xbps-install"
+alias xbps-remove="sudo xbps-remove"
+alias apk='sudo apk'
+alias vim='nvim'
+set -Ux STARSHIP_CONFIG "/home/$USER/.config/starship/starship.toml"
+alias yt-dlp='yt-dlp -x --audio-format mp3 --audio-quality 2 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"'
+starship init fish | source
+EOFFISH
 	cat <<EOFF > ~/.config/fastfetch/config.jsonc
 {
   "": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
@@ -30,33 +148,32 @@ mkdir -p ~/.config/starship
   ]
 }
 EOFF
-	cat <<EOFS > ~/.config/starship/starship.toml
+	cat <<'EOFS' > ~/.config/starship/starship.toml
 format = """
-$directory\
-$git_branch\
-$git_status\
-$fill\
-$python\
-$lua\
-$nodejs\
-$golang\
-$haskell\
-$rust\
-$ruby\
-$package\
-$aws\
-$docker_context\
-$jobs\
-$cmd_duration\
-$line_break\
+$username$hostname$directory$git_branch$git_status$fill$python$lua$nodejs$golang$haskell$rust$package$cmd_duration
 $character"""
-
 add_newline = true
 palette = 'nord'
 
+[username]
+show_always = true
+style_user = 'bold white'
+format = '[$user]($style)'
+
+[hostname]
+ssh_only = false
+style = 'bold white'
+format = '[@$hostname]($style) '
+
+
+[character]
+success_symbol = '[❯](bold green)'
+error_symbol = '[❯](bold red)'
+
+
 [directory]
 style = 'bold fg:dark_blue'
-format = '[$path ]($style)'
+format = '[$path]($style)'
 truncation_length = 3
 truncation_symbol = '…/'
 truncate_to_repo = false
@@ -70,11 +187,11 @@ truncate_to_repo = false
 [git_branch]
 style = 'fg:green'
 symbol = ' '
-format = '[on](white) [$symbol$branch ]($style)'
+format = '[$symbol$branch]($style) '
 
 [git_status]
 style = 'fg:green'
-format = '([$all_status$ahead_behind]($style) )'
+format = '([]() )'
 
 [fill]
 symbol = ' '
@@ -82,7 +199,7 @@ symbol = ' '
 [python]
 style = 'teal'
 symbol = ' '
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+format = '[( )(\(\) )]()'
 pyenv_version_name = true
 pyenv_prefix = ''
 
@@ -115,12 +232,12 @@ symbol = '󰏗 '
 [aws]
 symbol = ' '
 style = 'yellow'
-format = '[$symbol($profile )(\[$duration\] )]($style)'
+format = '[( )(\[\] )]()'
 
 [docker_context]
 symbol = ' '
 style = 'fg:#06969A'
-format = '[$symbol]($style) $path'
+format = '[]() '
 detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
 detect_extensions = ['Dockerfile']
 
@@ -128,12 +245,12 @@ detect_extensions = ['Dockerfile']
 symbol = ' '
 style = 'red'
 number_threshold = 1
-format = '[$symbol]($style)'
+format = '[]()'
 
 [cmd_duration]
 min_time = 500
 style = 'fg:gray'
-format = '[$duration]($style)'
+format = '[]()'
 
 [palettes.nord]
 dark_blue = '#5E81AC'
@@ -163,35 +280,44 @@ black='#2c323c'
 EOFS
 
 	cat <<EOFB > ~/.bashrc
-#
-# ~/.bashrc
-#
+fastfetch
+## Useful aliases
+# Replace ls with eza
+alias ls='eza -al --color=always --group-directories-first --icons=always' # preferred listing
+alias la='eza -a --color=always --group-directories-first --icons=always'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first --icons=always'  # long format
+alias lt='eza -aT --color=always --group-directories-first --icons=always' # tree listing
+alias l.="eza -a | grep -e '^\.'"                                     # show only dotfiles
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
+# Common use
+alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias tarnow='tar -acf '
+alias untar='tar -zxvf '
+alias wget='wget -c '
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
-PS1='[\u@\h \W]\$ '
-clear
 
 alias apt='sudo apt'
-alias nala='sudo nala'
+
+alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
+
+alias jctl="journalctl -p 3 -xb"
+
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias dnf='sudo dnf'
+alias nala='sudo nala'
 alias pacman='sudo pacman'
-alias apk='sudo apk'
-alias xbps-install='sudo xbps-install'
-alias xbps-remove='sudo xbps-remove'
-alias reboot='sudo reboot now'
 alias vim='nvim'
-
-
-fastfetch
-
-export LS_COLORS='di=34:ow=34:tw=34:st=34:fi=0:ex=32:ln=36:pi=33:so=35:bd=33:cd=33'
-
-alias ls='eza --icons=auto'
-
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+export STARSHIP_CONFIG="/home/$USER/.config/starship/starship.toml"
 eval "$(starship init bash)"
 EOFB
 
