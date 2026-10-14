@@ -52,7 +52,7 @@ cat <<FASTFETCH > ~/.config/fastfetch/config.jsonc
 FASTFETCH
 
 rm -rf ~/.config/fish
-mkdir ~/.config/fish/
+mkdir -p ~/.config/fish/
 cat <<'FISH' > ~/.config/fish/config.fish
 function fish_greeting
     fastfetch
@@ -127,7 +127,8 @@ end
 
 ## Useful aliases
 # Replace ls with eza
-alias ls='eza -al --color=always --group-directories-first --icons=always' # preferred listing
+alias ls='eza -l --color=always --group-directories-first --icons=always' # preferred listing
+alias lsr='eza -al --color=always --group-directories-first --icons=always'
 alias la='eza -a --color=always --group-directories-first --icons=always'  # all files and dirs
 alias ll='eza -l --color=always --group-directories-first --icons=always'  # long format
 alias lt='eza -aT --color=always --group-directories-first --icons=always' # tree listing
@@ -169,12 +170,12 @@ alias yt-dlp='yt-dlp -x --audio-format mp3 --audio-quality 2 --embed-metadata --
 starship init fish | source
 FISH
 rm -rf ~/.config/nvim
-rm ~/.vimrc
+rm -f ~/.vimrc
 sudo rm -rf /root/.config/nvim
 sudo rm -rf /root/.vimrc
-mkdir ~/.config/nvim
+mkdir -p ~/.config/nvim
 sudo mkdir -p /root/.config/nvim
-sudo tee ~/.vimrc ~/.config/nvim/init.vim /root/.vimrc /root/.config/nvim/init.vim >/dev/null 2>&1 <<VIM
+cat > ~/.vimrc <<VIM
 set number
 syntax on
 
@@ -187,9 +188,12 @@ set mouse=a
 map <F2> :wq<CR>
 map <F5> :q!<CR> 
 VIM
+cp ~/.vimrc ~/.config/nvim/init.vim
+sudo cp ~/.vimrc /root/.vimrc
+sudo cp ~/.vimrc /root/.config/nvim/init.vim
 
 rm -rf ~/.config/starship
-mkdir ~/.config/starship
+mkdir -p ~/.config/starship
 cat <<'STAR' > ~/.config/starship/starship.toml
 format = """
 $username$hostname$directory$git_branch$git_status$fill$python$lua$nodejs$golang$haskell$rust$package$cmd_duration
@@ -325,7 +329,8 @@ cat <<'BASH' > ~/.bashrc
 fastfetch
 ## Useful aliases
 # Replace ls with eza
-alias ls='eza -al --color=always --group-directories-first --icons=always' # preferred listing
+alias ls='eza -l --color=always --group-directories-first --icons=always' # preferred listing
+alias lsr='eza -al --color=always --group-directories-first --icons=always'
 alias la='eza -a --color=always --group-directories-first --icons=always'  # all files and dirs
 alias ll='eza -l --color=always --group-directories-first --icons=always'  # long format
 alias lt='eza -aT --color=always --group-directories-first --icons=always' # tree listing
