@@ -149,134 +149,108 @@ EOFFISH
 }
 EOFF
 	cat <<'EOFS' > ~/.config/starship/starship.toml
-format = """
-$username$hostname$directory$git_branch$git_status$fill$python$lua$nodejs$golang$haskell$rust$package$cmd_duration
-$character"""
 add_newline = true
-palette = 'nord'
+# Pipes ╰─ ╭─
+# Powerline symbols                                     
+# Wedges 🭧🭒 🭣🭧🭓
+# Random noise 🬖🬥🬔🬗
+# Cool stuff 󰜥   
 
-[username]
-show_always = true
-style_user = 'bold white'
-format = '[$user]($style)'
+# format = """
+# $directory $fill $git_branch $cmd_duration
+#  $character"""
+format = """
+$cmd_duration $directory$git_branch
+  $character"""
+
+[fill]
+symbol = '-'
+style = 'fg:245'
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[ ](bold fg:243)"
+error_symbol = "[ ](bold fg:244)"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[git_branch]
+style = "bg: 252"
+symbol = "󰘬"
+truncation_length = 12
+truncation_symbol = ""
+format = " 󰜥 [](bold fg:252)[$symbol $branch(:$remote_branch)](fg:235 bg:252)[ ](bold fg:252)"
+
+[git_commit]
+commit_hash_length = 4
+tag_symbol = " "
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
+
+[git_status]
+conflicted = " 🏳 "
+ahead = " 🏎💨 "
+behind = " 😰 "
+diverged = " 😵 "
+untracked = " 🤷 ‍"
+stashed = " 📦 "
+modified = " 📝 "
+staged = '[++\($count\)](green)'
+renamed = " ✍️ "
+deleted = " 🗑 "
 
 [hostname]
 ssh_only = false
-style = 'bold white'
-format = '[@$hostname]($style) '
+format =  "[•$hostname](bg:252 bold fg:235)[](bold fg:252)"
+trim_at = ".companyname.com"
+disabled = false
 
+[line_break]
+disabled = false
 
-[character]
-success_symbol = '[❯](bold green)'
-error_symbol = '[❯](bold red)'
+[memory_usage]
+disabled = true
+threshold = -1
+symbol = " "
+style = "bold dimmed green"
 
+[time]
+disabled = true
+format = '🕙[\[ $time \]]($style) '
+time_format = "%T"
+
+[username]
+style_user = "bold bg:252 fg:235"
+style_root = "red bold"
+format = "[](bold fg:252)[$user]($style)"
+disabled = false
+show_always = true
 
 [directory]
-style = 'bold fg:dark_blue'
-format = '[$path]($style)'
-truncation_length = 3
-truncation_symbol = '…/'
-truncate_to_repo = false
+home_symbol = " "
+read_only = "  "
+style = "bg:255 fg:240"
+truncation_length = 2
+truncation_symbol = ".../"
+format = '[](bold fg:255)[󰉋 → $path]($style)[](bold fg:255)'
 
-#[directory.substitutions]
-#'Documents' = '󰈙'
-#'Downloads' = ' '
-#'Music' = ' '
-#'Pictures' = ' '
 
-[git_branch]
-style = 'fg:green'
-symbol = ' '
-format = '[$symbol$branch]($style) '
-
-[git_status]
-style = 'fg:green'
-format = '([]() )'
-
-[fill]
-symbol = ' '
-
-[python]
-style = 'teal'
-symbol = ' '
-format = '[( )(\(\) )]()'
-pyenv_version_name = true
-pyenv_prefix = ''
-
-[lua]
-symbol = ' '
-
-[nodejs]
-style = 'blue'
-symbol = ' '
-
-[golang]
-style = 'blue'
-symbol = ' '
-
-[haskell]
-style = 'blue'
-symbol = ' '
-
-[rust]
-style = 'orange'
-symbol = ' '
-
-[ruby]
-style = 'blue'
-symbol = ' '
-
-[package]
-symbol = '󰏗 '
-
-[aws]
-symbol = ' '
-style = 'yellow'
-format = '[( )(\[\] )]()'
-
-[docker_context]
-symbol = ' '
-style = 'fg:#06969A'
-format = '[]() '
-detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
-detect_extensions = ['Dockerfile']
-
-[jobs]
-symbol = ' '
-style = 'red'
-number_threshold = 1
-format = '[]()'
+[directory.substitutions]
+"Desktop" = "  "
+"Documents" = "  "
+"Downloads" = "  "
+"Music" = " 󰎈 "
+"Pictures" = "  "
+"Videos" = "  "
+"GitHub" = " 󰊤 "
 
 [cmd_duration]
-min_time = 500
-style = 'fg:gray'
-format = '[]()'
-
-[palettes.nord]
-dark_blue = '#5E81AC'
-blue = '#81A1C1'
-teal = '#88C0D0'
-red = '#BF616A'
-orange = '#D08770'
-green = '#A3BE8C'
-yellow = '#EBCB8B'
-purple = '#B48EAD'
-gray = '#434C5E'
-black = '#2E3440'
-white='#D8DEE9'
-
-[palettes.onedark]
-dark_blue='#61afef'
-blue='#56b6c2'
-red='#e06c75'
-green='#98c379'
-purple='#c678dd'
-cyan='#56b6c2'
-orange='#be5046'
-yellow='#e5c07b'
-gray='#828997'
-white ='#abb2bf'
-black='#2c323c'
+min_time = 0
+format = '[](bold fg:252)[󰪢 $duration](bold bg:252 fg:235)[](bold fg:252)'
 EOFS
 
 	cat <<EOFB > ~/.bashrc
