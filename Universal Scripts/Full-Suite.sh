@@ -303,6 +303,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set mouse=a
+colorscheme habamax
+highlight Normal guibg=NONE ctermbg=NONE
 
 " Keybinds
 map <F2> :wq<CR>
@@ -317,7 +319,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set mouse=a
-
+colorscheme habamax
+highlight Normal guibg=NONE ctermbg=NONE
 " Keybinds
 map <F2> :wq<CR>
 map <F5> :q!<CR> 
@@ -1140,3 +1143,4 @@ EOF
                 ;;
             esac
         done
+

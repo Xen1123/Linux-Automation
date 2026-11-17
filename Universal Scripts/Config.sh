@@ -183,6 +183,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set mouse=a
+colorscheme habamax
+highlight Normal guibg=NONE ctermbg=NONE
 
 " Keybinds
 map <F2> :wq<CR>
@@ -343,3 +345,4 @@ alias vim='nvim'
 export STARSHIP_CONFIG="/home/$USER/.config/starship/starship.toml"
 eval "$(starship init bash)"
 BASH
+
