@@ -249,7 +249,7 @@ stashed = " 📦 "
 modified = " 📝 "
 staged = '[++\($count\)](green)'
 renamed = " ✍️ "
-deleted = " 🗑 "
+deleted = " 🗑️ "
 
 [hostname]
 ssh_only = false
